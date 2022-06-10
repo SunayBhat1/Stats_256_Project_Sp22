@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What does “doubly robust” mean? &#8212; Advanced Adjustment - An Introduction to Doubly Robust Methods</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Doubly Robust Methods" href="DR_Methods.html" />
+    <link rel="prev" title="Advanced Adjustment" href="intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Advanced Adjustment - An Introduction to Doubly Robust Methods</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Advanced Adjustment
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   What does “doubly robust” mean?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DR_Methods.html">
+   Doubly Robust Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="orthogonal_DML.html">
+   FWL Theorem and Double Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Conclusion.html">
+   <strong>
+    Conclusion and New Directions
+   </strong>
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/Introduction and Conceptual Overview.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/Introduction and Conceptual Overview.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#origins-of-doubly-robust-methods">
+   Origins of Doubly Robust Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assumptions">
+   Assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-demonstration">
+   A simple demonstration
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>What does “doubly robust” mean?</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#origins-of-doubly-robust-methods">
+   Origins of Doubly Robust Methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#assumptions">
+   Assumptions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-simple-demonstration">
+   A simple demonstration
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="what-does-doubly-robust-mean">
+<h1>What does “doubly robust” mean?<a class="headerlink" href="#what-does-doubly-robust-mean" title="Permalink to this headline">¶</a></h1>
+<p>Doubly robust methods estimate two models:</p>
+<ul class="simple">
+<li><p>an <em>outcome model</em></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mu_d(X_i) = E(Y_i \mid D_i = d, X_i)\]</div>
+<ul class="simple">
+<li><p>and a <em>exposure model</em> (or treament model or propensity score):</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\pi(X_i) = E(D_i \mid X_i)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu_d(\cdot)\)</span> is the model of control or treatment <span class="math notranslate nohighlight">\(D_i = d=\{0, 1\}\)</span>, <span class="math notranslate nohighlight">\(X_i\)</span> is a vector of covariates for unit <span class="math notranslate nohighlight">\(i = 1, \ldots, N\)</span> for treatment (1) and control (0), <span class="math notranslate nohighlight">\(Y_i\)</span> is the outcome, and <span class="math notranslate nohighlight">\(\pi(\cdot)\)</span> is the exposure model. The covariates included in <span class="math notranslate nohighlight">\(X_i\)</span> can be different for the two models.</p>
+<p>An estimator is called “doubly robust” if it achieves consistent estimation of the ATE (or whatever estimand we’re interested in) as long as <em>at least one</em> of these two models is consistently estimated. This means that the outcome model can be completely misspecified, but as long as the exposure model is correct, our estimation of the ATE will be consistent. This also means that the exposure model can be completely wrong, as along as the outcome model is correct.</p>
+<div class="section" id="origins-of-doubly-robust-methods">
+<h2>Origins of Doubly Robust Methods<a class="headerlink" href="#origins-of-doubly-robust-methods" title="Permalink to this headline">¶</a></h2>
+<p>According to Bang and Robins (2005), doubly robust methods have their origins in missing data models. Robins, Rotnitzky, and Zhao (1994) and Rotnitzky, Robins, and Scharfstein (1998) developed augmented orthogonal inverse probability-weighted (AIPW) estimators in missing data models, and Scharfstein, Rotnitzky, and Robins (1999) showed that AIPW was doubly robust and extended to causal inference.</p>
+<p>But Kang and Schafer (2007) argue that doubly robust methods are older. They cite work by Cassel, Särndal, and Wretman (1976), who proposed “generalized regression estimators” for population means from surveys where sampling weights must be estimated.</p>
+<p>Arguably, doubly robust methods go back even further than this. The form of doubly robust methods is similar to residual-on-residual regression, which dates back to Frisch, Waugh, and Lovell (1933) famous FWL theorem:</p>
+<div class="math notranslate nohighlight">
+\[\beta_D = \frac{\text{Cov}(\tilde Y_i, \tilde D_i)}{\text{Var}(\tilde D_i)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\tilde D_i\)</span> is the residual part of <span class="math notranslate nohighlight">\(D_i\)</span> after regressing it on <span class="math notranslate nohighlight">\(X_i\)</span>, and <span class="math notranslate nohighlight">\(\tilde Y_i\)</span> is the residual part of <span class="math notranslate nohighlight">\(Y_i\)</span> after regressing it on <span class="math notranslate nohighlight">\(X_i\)</span>. This formulation writes the regression coefficient as composed of an outcome model (<span class="math notranslate nohighlight">\(\tilde Y_i\)</span>) and exposure model (<span class="math notranslate nohighlight">\(\tilde D_i\)</span>), the two models used in doubly robust estimators.</p>
+<p>There are also links between doubly robust methods and matching with regression adjustment. This work goes back to at least Rubin (1973), who suggested that regression adjustment in matched data produces less biased estimates that either matching (exposure adjustment) or regression (outcome adjustment) do by themselves.</p>
+</div>
+<div class="section" id="assumptions">
+<h2>Assumptions<a class="headerlink" href="#assumptions" title="Permalink to this headline">¶</a></h2>
+<p>Most doubly robust methods require almost all of the standard assumptions necessary formost methods that depend on selection on observables. Although some doubly robust methods relax one or two of these, the six standard assumptions are:</p>
+<ol class="simple">
+<li><p>Consistency</p></li>
+<li><p>Positivity/overlap</p></li>
+<li><p>One version of treatment</p></li>
+<li><p>No interference</p></li>
+<li><p>IID observations</p></li>
+<li><p>Conditional ignorability: <span class="math notranslate nohighlight">\(\{Y_{i0}, Y_{i1}\} \perp \!\!\! \perp D_i \mid X_i\)</span></p></li>
+</ol>
+<p>Special attention should be paid to Assumption 6: doubly robust methods will not work if we do not measure an important confounder that affects both treatment and exposure. But notably, the doubly robust methods covered in this tutorial make no functional form assumptions. Most use flexible machine learning algorithms to estimate both the outcome and exposure models, with regularization (often through cross-fitting) to avoid overfitting.</p>
+<p>If these six assumptions are met, and we use the right estimator, we get double robustness: consistent estimation if either treatment or outcome model correct.</p>
+</div>
+<div class="section" id="a-simple-demonstration">
+<h2>A simple demonstration<a class="headerlink" href="#a-simple-demonstration" title="Permalink to this headline">¶</a></h2>
+<p>To demonstrate double robustness, this section presents one of the simpler doubly robust estimators: augmented inverse probability weights (AIPW). The following is adapted from Chapter 12 of Matheus Facure Alves’s (2021) <em><a class="reference external" href="https://matheusfacure.github.io/python-causality-handbook/landing-page.html">Causal Inference for the Brave and True</a></em>.</p>
+<p>We can write this estimator as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\widehat{ATE} = &amp;\frac{1}{N} \sum_{i=1}^N \left( \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) \right) \\
+&amp;- \frac{1}{N} \sum_{i=1}^N \left( \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i) \right)
+\end{aligned}\end{split}\]</div>
+<p>For each individual in the sample, this estimator calculates two quantities:</p>
+<ul class="simple">
+<li><p>The treated potential outcome</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\]</div>
+<ul class="simple">
+<li><p>The control potential outcome</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\hat Y_{0i} = \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i)\]</div>
+<p>Let’s focus on the treated model:</p>
+<div class="math notranslate nohighlight">
+\[\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\]</div>
+<p>First, assume that the outcome model <span class="math notranslate nohighlight">\(\mu_1(X_i)\)</span> is <em>correctly</em> specified and the exposure model <span class="math notranslate nohighlight">\(\pi(X_i)\)</span> is <em>incorreclty</em> specified. Let’s also assume (for now) that we’re dealing with a treated unit, i.e. <span class="math notranslate nohighlight">\(D_i = 1\)</span>. Then</p>
+<div class="math notranslate nohighlight">
+\[\hat \mu_1 (X_i) = Y_i\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[\hat Y_{1i} = \frac{D_i(0)}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\]</div>
+<p>So the model relies <em>only</em> on the outcome model! The incorrectly specified exposure model completely disappears from the equation. If we’re dealing with a control unit (<span class="math notranslate nohighlight">\(D_i=0\)</span>), we get the same result:</p>
+<div class="math notranslate nohighlight">
+\[\hat Y_{1i} = \frac{0(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\]</div>
+<p>Now, what if the <em>exposure</em> model <span class="math notranslate nohighlight">\(\pi(X_i)\)</span> is correctly specified and the outcome model <span class="math notranslate nohighlight">\(\mu_1(X)\)</span> is incorrect? First, we rewrite the estimator for the treated outcome:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\hat Y_{1i}&amp; = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) \\
+&amp;= \frac{D_iY_i}{\hat \pi (X_i)} - \frac{D_i\hat \mu_1 (X_i)}{\hat \pi (X_i)} + \frac{\hat \pi (X_i)\hat \mu_1(X_i)}{\hat \pi (X_i)} \\
+&amp; = \frac{D_iY_i}{\hat \pi (X_i)} - \left( \frac{D_i - \hat \pi(X_i)}{\hat \pi (X_i)}\right) \hat \mu_1(X_i). &amp;&amp;(*)
+\end{aligned}\end{split}\]</div>
+<p>Since the exposure model is correclty specified, we have <span class="math notranslate nohighlight">\(D_i = \hat \pi(X_i)\)</span> on average, so</p>
+<div class="math notranslate nohighlight">
+\[E[D_i - \hat \pi(X_i)] = 0.\]</div>
+<p>This means that the second term in equation <span class="math notranslate nohighlight">\((*)\)</span> is 0, so</p>
+<div class="math notranslate nohighlight">
+\[E[\hat Y_{1i}]= E \left [ \frac{D_iY_i}{\hat \pi (X_i)}\right].\]</div>
+<p>This shows that when the exposure model is correct, then the estimator depends <em>only</em> on the exposure model. We can make similar arguments for the control model <span class="math notranslate nohighlight">\(\hat Y_{0i}\)</span>.</p>
+<p>This demonstration shows that this estimator achieves double robustness: the estimator is robust to misspecification of either the exposure or the outcome model (but not both!).</p>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<p>Bang, H., &amp; Robins, J. M. (2005). Doubly Robust Estimation in Missing Data and Causal Inference Models. <em>Biometrics</em>, 61(4), 962–973. <a class="reference external" href="https://doi.org/10.1111/j.1541-0420.2005.00377.x">https://doi.org/10.1111/j.1541-0420.2005.00377.x</a></p>
+<p>CASSEL, C. M., SÄRNDAL, C. E., &amp; WRETMAN, J. H. (1976). Some results on generalized difference estimation and generalized regression estimation for finite populations. <em>Biometrika</em>, 63(3), 615–620. <a class="reference external" href="https://doi.org/10.1093/biomet/63.3.615">https://doi.org/10.1093/biomet/63.3.615</a></p>
+<p>Frisch, R., &amp; Waugh, F. V. (1933). Partial Time Regressions as Compared with Individual Trends. <em>Econometrica</em>, 1(4), 387–401. <a class="reference external" href="https://doi.org/10.2307/1907330">https://doi.org/10.2307/1907330</a></p>
+<p>Kang, J. D. Y., &amp; Schafer, J. L. (2007). Demystifying Double Robustness: A Comparison of Alternative Strategies for Estimating a Population Mean from Incomplete Data. <em>Statistical Science</em>, 22(4), 523–539. <a class="reference external" href="https://doi.org/10.1214/07-STS227">https://doi.org/10.1214/07-STS227</a></p>
+<p>Robins, J. M., Rotnitzky, A., &amp; Zhao, L. P. (1994). Estimation of Regression Coefficients When Some Regressors are not Always Observed. <em>Journal of the American Statistical Association</em>, 89(427), 846–866. <a class="reference external" href="https://doi.org/10.1080/01621459.1994.10476818">https://doi.org/10.1080/01621459.1994.10476818</a></p>
+<p>Rotnitzky, A., Robins, J. M., &amp; Scharfstein, D. O. (1998). Semiparametric Regression for Repeated Outcomes with Nonignorable Nonresponse. <em>Journal of the American Statistical Association</em>, 93(444), 1321–1339. <a class="reference external" href="https://doi.org/10.2307/2670049">https://doi.org/10.2307/2670049</a></p>
+<p>Rubin, D. B. (1973). The Use of Matched Sampling and Regression Adjustment to Remove Bias in Observational Studies. <em>Biometrics</em>, 29(1), 185–203. <a class="reference external" href="https://doi.org/10.2307/2529685">https://doi.org/10.2307/2529685</a></p>
+<p>Scharfstein, D. O., Rotnitzky, A., &amp; Robins, J. M. (1999). Adjusting for Nonignorable Drop-Out Using Semiparametric Nonresponse Models. <em>Journal of the American Statistical Association</em>, 94(448), 1096–1120. <a class="reference external" href="https://doi.org/10.1080/01621459.1999.10473862">https://doi.org/10.1080/01621459.1999.10473862</a></p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><strong>Advanced Adjustment</strong></p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="DR_Methods.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Doubly Robust Methods</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By S. Bhat, A. Chatterjee, L. Dahal, N. Hoffmann, A. Nanda<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

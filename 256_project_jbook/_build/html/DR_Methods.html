@@ -1,0 +1,1308 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doubly Robust Methods &#8212; Advanced Adjustment - An Introduction to Doubly Robust Methods</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="FWL Theorem and Double Machine Learning" href="orthogonal_DML.html" />
+    <link rel="prev" title="What does “doubly robust” mean?" href="Introduction%20and%20Conceptual%20Overview.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Advanced Adjustment - An Introduction to Doubly Robust Methods</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Advanced Adjustment
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Introduction%20and%20Conceptual%20Overview.html">
+   What does “doubly robust” mean?
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Doubly Robust Methods
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="orthogonal_DML.html">
+   FWL Theorem and Double Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Conclusion.html">
+   <strong>
+    Conclusion and New Directions
+   </strong>
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/DR_Methods.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/DR_Methods.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aipw">
+   AIPW
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset">
+     Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#understanding-the-data-and-potential-bias">
+     Understanding the data and potential bias
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-implementations">
+     Method Implementations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#experiments-and-results">
+     Experiments and Results
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#concluding-thoughts-for-aipe">
+     Concluding Thoughts for AIPE
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tmle">
+   TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background-and-setup">
+     Background and Setup
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Doubly Robust Methods</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#aipw">
+   AIPW
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background">
+     Background
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dataset">
+     Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#understanding-the-data-and-potential-bias">
+     Understanding the data and potential bias
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#method-implementations">
+     Method Implementations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#experiments-and-results">
+     Experiments and Results
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#concluding-thoughts-for-aipe">
+     Concluding Thoughts for AIPE
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tmle">
+   TMLE
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#background-and-setup">
+     Background and Setup
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="doubly-robust-methods">
+<h1>Doubly Robust Methods<a class="headerlink" href="#doubly-robust-methods" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="aipw">
+<h2>AIPW<a class="headerlink" href="#aipw" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="background">
+<h3>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h3>
+<p>Augmented Inverse Propensity Weighting (AIPW) is a modification of standard Inverse Propensity Weighting to achieve double robustness. We first consider basic IPW, which considers a sample weight, or propensity score <span class="math notranslate nohighlight">\(\hat \pi (X_i)\)</span>, in the model.</p>
+<div class="math notranslate nohighlight">
+\[\widehat{ATE}_{IPW} = \frac{1}{N} \sum_{i=1}^N \left[\frac{D_iY_i}{\hat \pi (X_i)} - \frac{(1-D_i)Y_i}{1-\hat \pi (X_i)}\right]\]</div>
+<p>The augmenteed IPW, AIPW, as presetned by Glynn and Quinn, 2009 includes the outcome model in such a way that ensures doubly-robust estimation. This equations below reqrites the AIPW formulation such the basic IPW is seen clearly first along with the ourcome model augmentation.</p>
+<div class="math notranslate nohighlight">
+\[\widehat{ATE}_{AIPW} = \frac{1}{N} \sum_{i=1}^N \left(\left[\frac{D_iY_i}{\hat \pi (X_i)} - \frac{(1-D_i)Y_i}{1-\hat \pi (X_i)}\right]-\frac{(X_i - \hat \pi (X_i))Y_i }{\pi (X_i)(1-\pi (X_i))} \right) [(1-\hat \pi (X_i))\hat{\mathbb{E}}(Y_i|D_i=1,X_i) + + \hat{\pi} (X_i) \hat{\mathbb{E}}(Y_i|D_i=0,X_i)]\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide Cell</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.precision&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LogisticRegression</span><span class="p">,</span> <span class="n">LinearRegression</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="dataset">
+<h3>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h3>
+<p>We will use a simulated dataset based on The National Study of Learning Mindsets. This was a randomized study conducted in U.S. public high schools, the purpose of which was to evaluate the impact of a nudge-like, optional intervention designed to instill students with a growth mindset. The study includes measured outcomes via an achievement score, a binary treatment of a growth mindset educational intervention, and 11 other potential confounding factors that could be parents of both the treatment and outcome. The first 5 rows of the dataset are shows in the table below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_mindset</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;learning_mindset.csv&#39;</span><span class="p">)</span>
+<span class="c1"># print(df_mindset.info())</span>
+<span class="n">df_mindset</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>schoolid</th>
+      <th>intervention</th>
+      <th>achievement_score</th>
+      <th>success_expect</th>
+      <th>ethnicity</th>
+      <th>gender</th>
+      <th>frst_in_family</th>
+      <th>school_urbanicity</th>
+      <th>school_mindset</th>
+      <th>school_achievement</th>
+      <th>school_ethnic_minority</th>
+      <th>school_poverty</th>
+      <th>school_size</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>76</td>
+      <td>1</td>
+      <td>0.277</td>
+      <td>6</td>
+      <td>4</td>
+      <td>2</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0.335</td>
+      <td>0.649</td>
+      <td>-1.311</td>
+      <td>0.224</td>
+      <td>-0.427</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>76</td>
+      <td>1</td>
+      <td>-0.450</td>
+      <td>4</td>
+      <td>12</td>
+      <td>2</td>
+      <td>1</td>
+      <td>4</td>
+      <td>0.335</td>
+      <td>0.649</td>
+      <td>-1.311</td>
+      <td>0.224</td>
+      <td>-0.427</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>76</td>
+      <td>1</td>
+      <td>0.770</td>
+      <td>6</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0.335</td>
+      <td>0.649</td>
+      <td>-1.311</td>
+      <td>0.224</td>
+      <td>-0.427</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>76</td>
+      <td>1</td>
+      <td>-0.122</td>
+      <td>6</td>
+      <td>4</td>
+      <td>2</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0.335</td>
+      <td>0.649</td>
+      <td>-1.311</td>
+      <td>0.224</td>
+      <td>-0.427</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>76</td>
+      <td>1</td>
+      <td>1.526</td>
+      <td>6</td>
+      <td>4</td>
+      <td>1</td>
+      <td>0</td>
+      <td>4</td>
+      <td>0.335</td>
+      <td>0.649</td>
+      <td>-1.311</td>
+      <td>0.224</td>
+      <td>-0.427</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Hide cell for book</span>
+<span class="c1"># Convert categorical values to binary indicators (one-hot)</span>
+<span class="n">categ</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;ethnicity&quot;</span><span class="p">,</span> <span class="s2">&quot;gender&quot;</span><span class="p">,</span> <span class="s2">&quot;school_urbanicity&quot;</span><span class="p">]</span>
+<span class="n">cont</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;school_mindset&quot;</span><span class="p">,</span> <span class="s2">&quot;school_achievement&quot;</span><span class="p">,</span> <span class="s2">&quot;school_ethnic_minority&quot;</span><span class="p">,</span> <span class="s2">&quot;school_poverty&quot;</span><span class="p">,</span> <span class="s2">&quot;school_size&quot;</span><span class="p">]</span>
+
+<span class="n">df_categ</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+    <span class="n">df_mindset</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">categ</span><span class="p">),</span> <span class="c1"># dataset without the categorical features</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df_mindset</span><span class="p">[</span><span class="n">categ</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">categ</span><span class="p">,</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># categorical features converted to dummies</span>
+<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># df_categ.head()</span>
+
+<span class="n">T</span> <span class="o">=</span> <span class="s1">&#39;intervention&#39;</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="s1">&#39;achievement_score&#39;</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="understanding-the-data-and-potential-bias">
+<h3>Understanding the data and potential bias<a class="headerlink" href="#understanding-the-data-and-potential-bias" title="Permalink to this headline">¶</a></h3>
+<p>We begin by visualizing the achievement scores of treated and untreated cohorts with no control or consideration for the other variables. It is clear form the plot below there is an impact of the treatment as the average of the treated group’s achievement scores is clearly higher. But we can intuit a positive bias in this measurement. We should note again the intervention was an option to take a growth mindset course. So although the option was offered in a random fashion, <em>it is highly likely students who opt-in to the treatment are likely to have the features to provide higher achievement scores regardless</em>. Thus, we might hypothesize controlling for this bias would decrease the ATE from the <em>naive ATE</em> (meaning no adjustment or simple difference of means of the treated and untreated groups).</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_mindset</span><span class="p">[</span><span class="s1">&#39;achievement_score&#39;</span><span class="p">][</span><span class="n">df_categ</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df_mindset</span><span class="p">[</span><span class="s1">&#39;achievement_score&#39;</span><span class="p">][</span><span class="n">df_categ</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Achievement Scores by Treatment&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Achievement Score&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Untreated&#39;</span><span class="p">,</span> <span class="s1">&#39;Treated&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/DR_Methods_6_0.png" src="_images/DR_Methods_6_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="method-implementations">
+<h3>Method Implementations<a class="headerlink" href="#method-implementations" title="Permalink to this headline">¶</a></h3>
+<p>The following code block implements the naive ATE, the standard IPW, and finally the AIPW methods as python functions. Note that propensity score, or the exposure model, is constructed as a <em>Logistic Regression problem</em>, and the outcome model is generated as a <em>Linear Regression problem</em>.</p>
+<p>We do this to allow us to readily run many iterations of each method. We will use a bootstrap subsample method, where we will sample the full dataset with replacement 100 times. This will allow us to generate a distribution of ATEs with an empirical standard deviation. Thus we can report our results comparing each of the three methods using various exposure and outcome models with 95% confidence intervals as well.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#### Define Estimation methods ####</span>
+
+<span class="c1">### Linear Regression T on Y</span>
+<span class="k">def</span> <span class="nf">naive_ATE</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">df</span><span class="p">[</span><span class="n">Y</span><span class="p">][</span><span class="n">df_categ</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_categ</span><span class="p">[</span><span class="n">Y</span><span class="p">][</span><span class="n">df_categ</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1">### IPW</span>
+<span class="k">def</span> <span class="nf">IPW</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_ps</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">true_ps</span><span class="p">:</span>
+        <span class="n">p_scores</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">df_ps</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">propensity_score</span><span class="o">=</span><span class="n">p_scores</span><span class="p">)</span>
+
+    <span class="n">weight</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_ps</span><span class="p">[</span><span class="s2">&quot;intervention&quot;</span><span class="p">]</span><span class="o">-</span><span class="n">df_ps</span><span class="p">[</span><span class="s2">&quot;propensity_score&quot;</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="n">df_ps</span><span class="p">[</span><span class="s2">&quot;propensity_score&quot;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">df_ps</span><span class="p">[</span><span class="s2">&quot;propensity_score&quot;</span><span class="p">])))</span>
+
+    <span class="n">weight_t</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">df_ps</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;intervention==1&quot;</span><span class="p">)[</span><span class="s2">&quot;propensity_score&quot;</span><span class="p">]</span>
+    <span class="n">weight_nt</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">df_ps</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;intervention==0&quot;</span><span class="p">)[</span><span class="s2">&quot;propensity_score&quot;</span><span class="p">])</span>
+
+    <span class="n">y1</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df_ps</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;intervention==1&quot;</span><span class="p">)[</span><span class="s2">&quot;achievement_score&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">weight</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_ps</span><span class="p">)</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df_ps</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;intervention==0&quot;</span><span class="p">)[</span><span class="s2">&quot;achievement_score&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">weight_nt</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_ps</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">weight</span> <span class="o">*</span> <span class="n">df_ps</span><span class="p">[</span><span class="s2">&quot;achievement_score&quot;</span><span class="p">]),</span> <span class="n">p_scores</span><span class="p">,</span> <span class="n">df_ps</span>
+
+<span class="c1">### AIPW</span>
+<span class="k">def</span> <span class="nf">AIPW</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_ps</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span><span class="n">true_mus</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">true_ps</span><span class="p">:</span>
+        <span class="n">p_scores</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">C</span><span class="o">=</span><span class="mf">1e6</span><span class="p">,</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">p_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">true_mus</span><span class="p">:</span>
+        <span class="n">mu0</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==0&quot;</span><span class="p">)[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==0&quot;</span><span class="p">)[</span><span class="n">Y</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+        <span class="n">mu1</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==1&quot;</span><span class="p">)[</span><span class="n">X</span><span class="p">],</span> <span class="n">df</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">T</span><span class="si">}</span><span class="s2">==1&quot;</span><span class="p">)[</span><span class="n">Y</span><span class="p">])</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">X</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mu0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">mu1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu1</span><span class="p">)</span><span class="o">/</span><span class="n">p_scores</span> <span class="o">+</span> <span class="n">mu1</span><span class="p">)</span> <span class="o">-</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="mi">1</span><span class="o">-</span><span class="n">df</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="o">*</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu0</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p_scores</span><span class="p">)</span> <span class="o">+</span> <span class="n">mu0</span><span class="p">)</span>
+    <span class="p">),</span> <span class="n">p_scores</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">mu1</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="experiments-and-results">
+<h3>Experiments and Results<a class="headerlink" href="#experiments-and-results" title="Permalink to this headline">¶</a></h3>
+<p>The following  block shows our bootstrap sampling method results displayed (100 iterations for the full dataset). In this initial experiment, we correctly specify both the exposure and outcome models. The results are displayed in the plot and table below.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">AIPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">IPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">naives_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">iSample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">):</span>
+    <span class="n">df_bootstrap</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">mu1</span> <span class="o">=</span> <span class="n">AIPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">AIPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">IPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">IPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">naives_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">naive_ATE</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 2.5), 0, 20, linestyles=&quot;dotted&quot;)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 97.5), 0, 20, linestyles=&quot;dotted&quot;, label=&quot;95% CI&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ATE Bootstrap Distribution&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ATE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;AIPW&#39;</span><span class="p">,</span> <span class="s1">&#39;IPW&#39;</span><span class="p">,</span> <span class="s1">&#39;Naive&#39;</span><span class="p">])</span>
+
+<span class="n">Results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AIPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;IPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;Naive&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)}}</span>
+
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
+<span class="n">df_results</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mean ATE</th>
+      <th>Std Dev</th>
+      <th>[.025</th>
+      <th>.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AIPW</th>
+      <td>0.386</td>
+      <td>0.017</td>
+      <td>0.351</td>
+      <td>0.420</td>
+    </tr>
+    <tr>
+      <th>IPW</th>
+      <td>0.386</td>
+      <td>0.016</td>
+      <td>0.352</td>
+      <td>0.419</td>
+    </tr>
+    <tr>
+      <th>Naive</th>
+      <td>0.471</td>
+      <td>0.015</td>
+      <td>0.442</td>
+      <td>0.497</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/DR_Methods_10_1.png" src="_images/DR_Methods_10_1.png" />
+</div>
+</div>
+<p>From the results it is clear both IPW and AIPW account for a positive bias we hypothesized. They estimate the ATE at ~<span class="math notranslate nohighlight">\(0.39\)</span>, up from the naive ATE estimate of ~<span class="math notranslate nohighlight">\(0.47\)</span>. We also note the IPW and AIPW methods agree with very close estimates and with very similar 95% confidence intervals. This is unsurprising considering the exposure model is correctly specified using logistic regression for both methods.</p>
+<p>Now that we have propensity scores, we can also perform a quick positivity check visualizing the distribution of our propensity scores to ensure we meet the positivity/overlap assumption which the plot below demonstrates.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide Cell</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="n">df_categ</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">ps</span><span class="p">[</span><span class="n">df_categ</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Positivity Check</span><span class="se">\n</span><span class="s2">Propensity Score Dists&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Propesnity Scores&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;Untreated&#39;</span><span class="p">,</span> <span class="s1">&#39;Treated&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/DR_Methods_12_0.png" src="_images/DR_Methods_12_0.png" />
+</div>
+</div>
+<p>In the second experiment, we specify a bad exposure model. Instead of using logistic regression, we simply sample a uniform random distribution:</p>
+<div class="math notranslate nohighlight">
+\[ \hat \pi (X_i) \sim U(0.1,0.9) \]</div>
+<p>As we can see from the results below, the AIPE method is effectively stable, estimating a slightly lower ATE of about ~<span class="math notranslate nohighlight">\(0.38\)</span>. The standard deviation also increases slightly. On the other hand, the IPW method does far worse than the naive method, which again makes sense as we are feeding it random noise for the propensity scores. This is the first example of a doubly robust method showing how, since the outcome model is correctly specified, the estimation is still robust even to random noise for the exposure model.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide cell</span>
+<span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">AIPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">IPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">naives_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">iSample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">):</span>
+    <span class="n">df_bootstrap</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">mu1</span> <span class="o">=</span> <span class="n">AIPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_ps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">AIPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">IPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_ps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">IPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">naives_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">naive_ATE</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 2.5), 0, 20, linestyles=&quot;dotted&quot;)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 97.5), 0, 20, linestyles=&quot;dotted&quot;, label=&quot;95% CI&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ATE Bootstrap Distribution</span><span class="se">\n</span><span class="s2">Random Exposure Model&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ATE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;AIPW&#39;</span><span class="p">,</span> <span class="s1">&#39;IPW&#39;</span><span class="p">,</span> <span class="s1">&#39;Naive&#39;</span><span class="p">])</span>
+
+<span class="n">Results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AIPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;IPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;Naive&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)}}</span>
+
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
+<span class="n">df_results</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mean ATE</th>
+      <th>Std Dev</th>
+      <th>[.025</th>
+      <th>.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AIPW</th>
+      <td>0.391</td>
+      <td>0.022</td>
+      <td>0.354</td>
+      <td>0.435</td>
+    </tr>
+    <tr>
+      <th>IPW</th>
+      <td>0.580</td>
+      <td>0.031</td>
+      <td>0.523</td>
+      <td>0.648</td>
+    </tr>
+    <tr>
+      <th>Naive</th>
+      <td>0.473</td>
+      <td>0.018</td>
+      <td>0.443</td>
+      <td>0.511</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/DR_Methods_14_1.png" src="_images/DR_Methods_14_1.png" />
+</div>
+</div>
+<p>In the third experiment, we now investigate the impact of a bad outcome model. We again sample from a uniform distribution to obtain the incorrect outcome data:</p>
+<div class="math notranslate nohighlight">
+\[\mu_d(X_i) \sim U(0,1) \]</div>
+<p>Here once again see the AIPW and IPW methods both agree and estimate ~<span class="math notranslate nohighlight">\(0.39\)</span>. AIPW again shows the doubly robust property against the completely random outcome model, while IPW is unimpacted since the exposure model is correct. Both hence perform similarly to the original experiment.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide cell</span>
+<span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">AIPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">IPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">naives_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">iSample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">):</span>
+    <span class="n">df_bootstrap</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">mu1</span> <span class="o">=</span> <span class="n">AIPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_mus</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">AIPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">IPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">IPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">naives_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">naive_ATE</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 2.5), 0, 20, linestyles=&quot;dotted&quot;)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 97.5), 0, 20, linestyles=&quot;dotted&quot;, label=&quot;95% CI&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ATE Bootstrap Distribution</span><span class="se">\n</span><span class="s2">Random Outcome Model&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ATE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;AIPW&#39;</span><span class="p">,</span> <span class="s1">&#39;IPW&#39;</span><span class="p">,</span> <span class="s1">&#39;Naive&#39;</span><span class="p">])</span>
+
+<span class="n">Results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AIPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;IPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;Naive&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)}}</span>
+
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
+<span class="n">df_results</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mean ATE</th>
+      <th>Std Dev</th>
+      <th>[.025</th>
+      <th>.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AIPW</th>
+      <td>0.385</td>
+      <td>0.018</td>
+      <td>0.348</td>
+      <td>0.417</td>
+    </tr>
+    <tr>
+      <th>IPW</th>
+      <td>0.386</td>
+      <td>0.017</td>
+      <td>0.351</td>
+      <td>0.414</td>
+    </tr>
+    <tr>
+      <th>Naive</th>
+      <td>0.472</td>
+      <td>0.020</td>
+      <td>0.441</td>
+      <td>0.509</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/DR_Methods_16_1.png" src="_images/DR_Methods_16_1.png" />
+</div>
+</div>
+<p>In the final experiment, we show the impact of a bad outcome and exposure model:</p>
+<div class="math notranslate nohighlight">
+\[\mu_d(X_i) \sim U(0,1),  \hat \pi (X_i) \sim U(0.1,0.9) \]</div>
+<p>In this experiment, we see that AIPW performs very poorly, vastly over-estimating the ATE. In this instance, either naive or IPW would perform better, although the naive without any consideration for random models does best.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide cell</span>
+<span class="n">bootstrap_sample</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">AIPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">IPW_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">naives_ates</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">iSample</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bootstrap_sample</span><span class="p">):</span>
+    <span class="n">df_bootstrap</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span> <span class="n">mu0</span><span class="p">,</span> <span class="n">mu1</span> <span class="o">=</span> <span class="n">AIPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_mus</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span><span class="n">true_ps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">AIPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">IPW</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span><span class="n">true_ps</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">IPW_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ate</span><span class="p">)</span>
+    <span class="n">naives_ates</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">naive_ATE</span><span class="p">(</span><span class="n">df_bootstrap</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 2.5), 0, 20, linestyles=&quot;dotted&quot;)</span>
+<span class="c1"># plt.vlines(np.percentile(AIPW_ates, 97.5), 0, 20, linestyles=&quot;dotted&quot;, label=&quot;95% CI&quot;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;ATE Bootstrap Distribution</span><span class="se">\n</span><span class="s2">Random Outcome and Exposure Model&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;ATE&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">fontweight</span> <span class="o">=</span> <span class="s1">&#39;bold&#39;</span><span class="p">,</span> <span class="n">labelpad</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;AIPW&#39;</span><span class="p">,</span> <span class="s1">&#39;IPW&#39;</span><span class="p">,</span> <span class="s1">&#39;Naive&#39;</span><span class="p">])</span>
+
+<span class="n">Results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;AIPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">AIPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;IPW&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">IPW_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)},</span>
+<span class="s2">&quot;Naive&quot;</span><span class="p">:{</span><span class="s2">&quot;Mean ATE&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;Std Dev&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">),</span> <span class="s2">&quot;[.025&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="s2">&quot;.975]&quot;</span><span class="p">:</span><span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">naives_ates</span><span class="p">,</span> <span class="mf">97.5</span><span class="p">)}}</span>
+
+<span class="n">df_results</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Results</span><span class="p">)</span>
+<span class="n">df_results</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mean ATE</th>
+      <th>Std Dev</th>
+      <th>[.025</th>
+      <th>.975]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AIPW</th>
+      <td>1.044</td>
+      <td>0.041</td>
+      <td>0.958</td>
+      <td>1.123</td>
+    </tr>
+    <tr>
+      <th>IPW</th>
+      <td>0.571</td>
+      <td>0.034</td>
+      <td>0.510</td>
+      <td>0.642</td>
+    </tr>
+    <tr>
+      <th>Naive</th>
+      <td>0.471</td>
+      <td>0.017</td>
+      <td>0.441</td>
+      <td>0.505</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/DR_Methods_18_1.png" src="_images/DR_Methods_18_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="concluding-thoughts-for-aipe">
+<h3>Concluding Thoughts for AIPE<a class="headerlink" href="#concluding-thoughts-for-aipe" title="Permalink to this headline">¶</a></h3>
+<p>We clearly demonstrate AIPW’s doubly robust properties using the simulated National Mindset dataset. But it is important to note, our ‘incorrect’ models were uniform random which would be about as poor as one could imagine. In reality, misspecified models contain more subtle biases or noise, and thus there is a whole host of literature investigating the sensitivity of doubly robust methods to various types and degrees of misspecification. For instance in the example where both models were incorrect, one could imagine scenarios where model misspecifications cancel out, and actually produce a relatively accurate ATE estimate. It is an area of active research on when doubly robust methods should be used when there might be uncertainty on both models.</p>
+</div>
+</div>
+<div class="section" id="tmle">
+<h2>TMLE<a class="headerlink" href="#tmle" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="background-and-setup">
+<h3>Background and Setup<a class="headerlink" href="#background-and-setup" title="Permalink to this headline">¶</a></h3>
+<p>Targeted Maximum Likelihood Estimation (TMLE) is a semi-parametric method with minimal assumptions on the underlying data distribution demonstrated by Van der Laan &amp; Rubin in 2006. We will briefly walk through the steps of a TMLE estimation algorithm on the same data without diving too deep into the formulation.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide Cell</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s2">&quot;display.precision&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;seaborn&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">from</span> <span class="nn">scipy.special</span> <span class="kn">import</span> <span class="n">logit</span><span class="p">,</span> <span class="n">expit</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="c1"># Super Learner Import</span>
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">hstack</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">vstack</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">asarray</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_regression</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">KFold</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">mean_squared_error</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LinearRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">ElasticNet</span>
+<span class="kn">from</span> <span class="nn">sklearn.neighbors</span> <span class="kn">import</span> <span class="n">KNeighborsRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.svm</span> <span class="kn">import</span> <span class="n">SVR</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">AdaBoostRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">BaggingRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">ExtraTreesRegressor</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>The TMLE algorithm begins by first estimating a model by training and predicting a super learning ensemble of algorithms. In the hidden code block below, we do so using 9 models from pre-built libraries. We report the root mean squared errors for all algorithms, demonstrating the super learner ensemble performs best.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Hide Cell</span>
+<span class="c1"># create a list of base-models</span>
+<span class="k">def</span> <span class="nf">get_models</span><span class="p">():</span>
+	<span class="n">models</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">LinearRegression</span><span class="p">())</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ElasticNet</span><span class="p">())</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SVR</span><span class="p">(</span><span class="n">gamma</span><span class="o">=</span><span class="s1">&#39;scale&#39;</span><span class="p">))</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">DecisionTreeRegressor</span><span class="p">())</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">KNeighborsRegressor</span><span class="p">())</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AdaBoostRegressor</span><span class="p">())</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BaggingRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">RandomForestRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+	<span class="n">models</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ExtraTreesRegressor</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">models</span>
+ 
+<span class="c1"># collect out of fold predictions form k-fold cross validation</span>
+<span class="k">def</span> <span class="nf">get_out_of_fold_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="p">):</span>
+	<span class="n">meta_X</span><span class="p">,</span> <span class="n">meta_y</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(),</span> <span class="nb">list</span><span class="p">()</span>
+	<span class="c1"># define split of data</span>
+	<span class="n">kfold</span> <span class="o">=</span> <span class="n">KFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+	<span class="c1"># enumerate splits</span>
+	<span class="k">for</span> <span class="n">train_ix</span><span class="p">,</span> <span class="n">test_ix</span> <span class="ow">in</span> <span class="n">kfold</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">):</span>
+		<span class="n">fold_yhats</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+		<span class="c1"># get data</span>
+		<span class="n">train_X</span><span class="p">,</span> <span class="n">test_X</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_ix</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_ix</span><span class="p">]</span>
+		<span class="n">train_y</span><span class="p">,</span> <span class="n">test_y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_ix</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_ix</span><span class="p">]</span>
+		<span class="n">meta_y</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">test_y</span><span class="p">)</span>
+		<span class="c1"># fit and make predictions with each sub-model</span>
+		<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+			<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_X</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
+			<span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_X</span><span class="p">)</span>
+			<span class="c1"># store columns</span>
+			<span class="n">fold_yhats</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yhat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">yhat</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+		<span class="c1"># store fold yhats as columns</span>
+		<span class="n">meta_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hstack</span><span class="p">(</span><span class="n">fold_yhats</span><span class="p">))</span>
+	<span class="k">return</span> <span class="n">vstack</span><span class="p">(</span><span class="n">meta_X</span><span class="p">),</span> <span class="n">asarray</span><span class="p">(</span><span class="n">meta_y</span><span class="p">)</span>
+ 
+<span class="c1"># fit all base models on the training dataset</span>
+<span class="k">def</span> <span class="nf">fit_base_models</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+		<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+ 
+<span class="c1"># fit a meta model</span>
+<span class="k">def</span> <span class="nf">fit_meta_model</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+	<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+	<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">model</span>
+ 
+<span class="c1"># evaluate a list of models on a dataset</span>
+<span class="k">def</span> <span class="nf">evaluate_models</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="p">):</span>
+	<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+		<span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+		<span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">)</span>
+		<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">: RMSE </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">mse</span><span class="p">)))</span>
+ 
+<span class="c1"># make predictions with stacked model</span>
+<span class="k">def</span> <span class="nf">super_learner_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">meta_model</span><span class="p">):</span>
+	<span class="n">meta_X</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+	<span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">:</span>
+		<span class="n">yhat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+		<span class="n">meta_X</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">yhat</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">yhat</span><span class="p">),</span><span class="mi">1</span><span class="p">))</span>
+	<span class="n">meta_X</span> <span class="o">=</span> <span class="n">hstack</span><span class="p">(</span><span class="n">meta_X</span><span class="p">)</span>
+	<span class="c1"># predict</span>
+	<span class="k">return</span> <span class="n">meta_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">meta_X</span><span class="p">)</span>
+ 
+<span class="c1"># create the inputs and outputs</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_categ</span><span class="p">[</span><span class="n">df_categ</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Y</span><span class="p">])]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_categ</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="c1"># split</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">X_val</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_val</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.50</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Train&#39;</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="n">X_val</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_val</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># get models</span>
+<span class="n">models</span> <span class="o">=</span> <span class="n">get_models</span><span class="p">()</span>
+<span class="c1"># get out of fold predictions</span>
+<span class="n">meta_X</span><span class="p">,</span> <span class="n">meta_y</span> <span class="o">=</span> <span class="n">get_out_of_fold_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Meta &#39;</span><span class="p">,</span> <span class="n">meta_X</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">meta_y</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="c1"># fit base models</span>
+<span class="n">fit_base_models</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">models</span><span class="p">)</span>
+<span class="c1"># fit the meta model</span>
+<span class="n">meta_model</span> <span class="o">=</span> <span class="n">fit_meta_model</span><span class="p">(</span><span class="n">meta_X</span><span class="p">,</span> <span class="n">meta_y</span><span class="p">)</span>
+<span class="c1"># evaluate base models</span>
+<span class="n">evaluate_models</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">,</span> <span class="n">models</span><span class="p">)</span>
+<span class="c1"># evaluate meta model</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">super_learner_predictions</span><span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">meta_model</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Super Learner: RMSE </span><span class="si">%.3f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">mean_squared_error</span><span class="p">(</span><span class="n">y_val</span><span class="p">,</span> <span class="n">yhat</span><span class="p">))))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train (5195, 31) (5195,) Test (5196, 31) (5196,)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Meta  (5195, 9) (5195,)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>LinearRegression: RMSE 0.832
+ElasticNet: RMSE 0.998
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SVR: RMSE 0.853
+DecisionTreeRegressor: RMSE 1.035
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>KNeighborsRegressor: RMSE 0.890
+AdaBoostRegressor: RMSE 0.831
+BaggingRegressor: RMSE 0.894
+RandomForestRegressor: RMSE 0.892
+ExtraTreesRegressor: RMSE 0.947
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Super Learner: RMSE 0.810
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the second step we use the super learner algorithm to estimate the expected value of the outcome using the treatment and confounders as predictors. Within this, there are three steps:</p>
+<ol class="simple">
+<li><p>predict with the interventions</p></li>
+<li><p>predict with every sample receiving no treatment</p></li>
+<li><p>predict with every sample receiving treatment.</p></li>
+</ol>
+<p>We can take the difference of the last two as an ATE estimate, which is effectively the g-estimation approach. We see below this provides a decent 1st estimate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_predict</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_predict</span><span class="p">[</span><span class="n">df_predict</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Y</span><span class="p">])]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Q_a</span> <span class="o">=</span> <span class="n">super_learner_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">meta_model</span><span class="p">)</span>
+<span class="n">df_predict</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_predict</span><span class="p">[</span><span class="n">df_predict</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Y</span><span class="p">])]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Q_0</span> <span class="o">=</span> <span class="n">super_learner_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">meta_model</span><span class="p">)</span>
+<span class="n">df_predict</span><span class="p">[</span><span class="s1">&#39;intervention&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_predict</span><span class="p">[</span><span class="n">df_predict</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">Y</span><span class="p">])]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Q_1</span> <span class="o">=</span> <span class="n">super_learner_predictions</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">models</span><span class="p">,</span> <span class="n">meta_model</span><span class="p">)</span>
+
+<span class="n">df_tmle</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">df_categ</span><span class="p">[</span><span class="n">Y</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span><span class="n">df_categ</span><span class="p">[</span><span class="n">T</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">Q_a</span><span class="p">,</span><span class="n">Q_0</span><span class="p">,</span><span class="n">Q_1</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">df_tmle</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">,</span><span class="s1">&#39;D&#39;</span><span class="p">,</span><span class="s1">&#39;Q_a&#39;</span><span class="p">,</span><span class="s1">&#39;Q_0&#39;</span><span class="p">,</span><span class="s1">&#39;Q_1&#39;</span><span class="p">]</span>
+
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_1&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_0&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.4192536456208886
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the third step we obtain propensity scores (ps) and form a “clever covariate” from these values which will be used to refine our model. the inverse ps with indicator is added with the negative inverse of not being treated (1-ps) also multiplied with indicator if not being treated:</p>
+<div class="math notranslate nohighlight">
+\[H(D,X) = \frac{I(D=1)}{\hat \pi (X_i)} - \frac{I(D=0)}{1 - \hat \pi (X_i)}\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="s1">&#39;intervention&#39;</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="s1">&#39;achievement_score&#39;</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_categ</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
+<span class="n">ate</span><span class="p">,</span> <span class="n">ps</span><span class="p">,</span><span class="n">_</span> <span class="o">=</span> <span class="n">IPW</span><span class="p">(</span><span class="n">df_categ</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">ps</span>
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">ps</span><span class="p">)</span>
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;D&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the fourth and fifth steps, we estimate the fluctuation parameter using the logit function:</p>
+<div class="math notranslate nohighlight">
+\[logit(\mathbb{E}[Y|D,X]) = logit(\hat{\mathbb{E}}[Y|D,X]) = \epsilon H(D,X)\]</div>
+<p>We then update out initial estimates with the fluctuation parameter adjustment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eps_fit</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_a&#39;</span><span class="p">],</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_a&#39;</span><span class="p">],</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_0_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_0&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">eps_fit</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_0&#39;</span><span class="p">]</span>
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_1_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_1&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">eps_fit</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_1&#39;</span><span class="p">]</span>
+<span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_a_hat&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">eps_fit</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_a&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">TMLE_ate</span> <span class="o">=</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_1_hat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_0_hat&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;TMLE TAE estimate: </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">TMLE_ate</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TMLE TAE estimate: 0.3807
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see how the fluctuation adjusted outcomes estimates vastly improves the ATE to be more in line with AIPW. One major benefit of TMLE is a whole set of nice statistical and convergence properties. In this case, we can use something called the influence function to calculate a closed form standard error, unlike the empirical error estimates we gained by bootstrapping in the AIPW case.</p>
+<div class="math notranslate nohighlight">
+\[\hat{IF} = (Y-\hat{\mathbb{E}}*[Y|D,X])H(D,X) + \hat{\mathbb{E}}*[Y|D=1,X] - \hat{\mathbb{E}}*[Y|D=0,X] - ATE_{TMLE}\]</div>
+<div class="math notranslate nohighlight">
+\[SE = \sqrt{var(IF)/N}\]</div>
+<p>Using the above method, we see we get a SE very similar to our AIPW empirical methods.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">IF</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Y&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_a_hat&#39;</span><span class="p">])</span> <span class="o">*</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;H_a&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_1_hat&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df_tmle</span><span class="p">[</span><span class="s1">&#39;Q_0_hat&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">TMLE_ate</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;SE calculated from influcence function: </span><span class="si">{:.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">IF</span><span class="o">.</span><span class="n">var</span><span class="p">()</span><span class="o">/</span><span class="n">df_tmle</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>SE calculated from influcence function: 0.0164
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. Glynn, A. N., &amp; Quinn, K. M. (2010). An introduction to the augmented inverse propensity weighted estimator. Political analysis, 18(1), 36-56.
+
+2. https://matheusfacure.github.io/python-causality-handbook/12-Doubly-Robust-Estimation.html
+
+3. Gruber S, van der Laan MJ. Targeted minimum loss based estimator that outperforms a given estimator. Int J Biostat. 2012 May 18;8(1):Article 11. doi: 10.1515/1557-4679.1332. PMID: 22628356; PMCID: PMC6052865.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="Introduction%20and%20Conceptual%20Overview.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">What does “doubly robust” mean?</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="orthogonal_DML.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">FWL Theorem and Double Machine Learning</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By S. Bhat, A. Chatterjee, L. Dahal, N. Hoffmann, A. Nanda<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

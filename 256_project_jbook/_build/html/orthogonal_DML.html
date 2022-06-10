@@ -1,0 +1,1612 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FWL Theorem and Double Machine Learning &#8212; Advanced Adjustment - An Introduction to Doubly Robust Methods</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Conclusion and New Directions" href="Conclusion.html" />
+    <link rel="prev" title="Doubly Robust Methods" href="DR_Methods.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Advanced Adjustment - An Introduction to Doubly Robust Methods</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="intro.html">
+   Advanced Adjustment
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="Introduction%20and%20Conceptual%20Overview.html">
+   What does “doubly robust” mean?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="DR_Methods.html">
+   Doubly Robust Methods
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   FWL Theorem and Double Machine Learning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="Conclusion.html">
+   <strong>
+    Conclusion and New Directions
+   </strong>
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/orthogonal_DML.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/orthogonal_DML.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fwl-theorem-orthogonalization">
+   FWL Theorem/Orthogonalization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthogonalization-example">
+     Orthogonalization: Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#debiased-double-machine-learning">
+   Debiased/Double Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dml-example-implementation">
+     DML: Example Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     Summary
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>FWL Theorem and Double Machine Learning</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fwl-theorem-orthogonalization">
+   FWL Theorem/Orthogonalization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthogonalization-example">
+     Orthogonalization: Example
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#debiased-double-machine-learning">
+   Debiased/Double Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dml-example-implementation">
+     DML: Example Implementation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     Summary
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#references">
+     References
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <div class="section" id="fwl-theorem-and-double-machine-learning">
+<h1>FWL Theorem and Double Machine Learning<a class="headerlink" href="#fwl-theorem-and-double-machine-learning" title="Permalink to this headline">¶</a></h1>
+<p>Following up on the previous notebook where we covered several doubly robust methods (e.g., AIPW and TMLE), we will go through double machine learning (DML) in detail in this notebook. But before diving into theory let us understand why we need DML in the first place, shall we?</p>
+<p>Augmented inverse propensity weighting (AIPW) is a modification of the inverse propensity weighting (IPW) that guarantees double roubustness and consistent average treatment effect(ATE) estimate even if 1) treatment/exposure model (<span class="math notranslate nohighlight">\( \hat\pi(x) \)</span>) or 2) outcome model (<span class="math notranslate nohighlight">\( \hat\mu(x) \)</span>) is misspecified <a class="reference external" href="https://www.law.berkeley.edu/files/AIPW(1).pdf">GLynn and Quinn, 2009</a>. Although AIPW provides a nice flexibility in estimating a consistent ATE, it does necessitate at least one model to be correctly specified. If both the models are incorrectly specified, the naive IPW outperforms AIPW. Similarly, targeted maximum likelihood estimation (TMLE) is a semiparametric estimation framework. TMLE tends to work well when the treatment is not a weak predictor of the outcome. If that’s not the case, the estimation tends to be biased toward zero which obviously might not be the baseline truth.</p>
+<p>The main objective of DML is to provide a general framework to estimating and performing inference on low-dimensional parameter (<span class="math notranslate nohighlight">\( \theta_0\)</span>) in presence of high-dimensional nuisance parameter utilizing nonparametric machine learning methods. DML works for both binary and continuous treatment variables which is not the case for some of the doubly robust methods. As the name suggests, DML leverages “double” or two high-performance ML methods to estimate a high-quality <span class="math notranslate nohighlight">\(\theta_0\)</span>. Specifically, the first ML algorithm is used for treatment model while the second algorithm is used for the outcome model. Finally, Frisch-Waugh-Lovell (FWL)-type residuals-on-residuals regressioin is utilized to get a de-biased estimate of <span class="math notranslate nohighlight">\(\theta_0\)</span>. DML is also know as “debiased-ML” or “orthogonalized ML.”</p>
+<div class="section" id="fwl-theorem-orthogonalization">
+<h2>FWL Theorem/Orthogonalization<a class="headerlink" href="#fwl-theorem-orthogonalization" title="Permalink to this headline">¶</a></h2>
+<p>Orthogonalization (or equivalently FWL Theorem (<a class="reference external" href="https://www.jstor.org/stable/pdf/1907330.pdf">Frisch and Waugh, 1933</a>; <a class="reference external" href="https://www.tandfonline.com/doi/abs/10.3200/jece.39.1.88-91">Lovell, 1963</a>) is the backbone of DML. Its principled approach guarantees an unbiased estimate. Since it is a key to understanding why DML works, we will first prove the FWL Theorem and implement it in an example to demonstrate how it debiases the data before moving on to the details of DML.</p>
+<p>Let us take a multivariate linear regression</p>
+<div class="math notranslate nohighlight">
+\[ Y = D_1\beta_1 + X\beta_2 + \epsilon \]</div>
+<p>where <span class="math notranslate nohighlight">\(Y\)</span> is <span class="math notranslate nohighlight">\( n \times 1\)</span> outcome, <span class="math notranslate nohighlight">\(D\)</span> is <span class="math notranslate nohighlight">\(n \times p_1\)</span> treatment variables, and <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(n \times p_2\)</span> covariates or nuisance parameters.</p>
+<p>Multiply the equation with residual maker function (<span class="math notranslate nohighlight">\(G\)</span>) of the treatment parameters <span class="math notranslate nohighlight">\(D\)</span>. The residual maker is defined by <span class="math notranslate nohighlight">\(Gy = y - D(D'D)^{-1}D'y \equiv y - D\beta \equiv \epsilon_D\)</span></p>
+<div class="math notranslate nohighlight">
+\[ GY = GD_1\beta_1 + GX\beta_2 + G\epsilon \]</div>
+<p>Since <span class="math notranslate nohighlight">\(GD_1\beta_1 \equiv 0\)</span>, the equation above simplifies to</p>
+<div class="math notranslate nohighlight">
+\[ GY = GX\beta_2 + G\epsilon \]</div>
+<p>Now, the final equation becomes</p>
+<div class="math notranslate nohighlight">
+\[ GY = GX\beta_2 + \epsilon \]</div>
+<p>Taking a closer look at the equation, we can see that we are regressing residuals on residuals. This shows that results obtained from multivariate linear regression is the same as the residuals-on-residuals regression.</p>
+<p>Now that we have seen a proof of why residuals-on-residuals regression work, let us go through an example implementation to see orthogonalization in action.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># importing required packages</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">joblib</span> <span class="kn">import</span> <span class="n">Parallel</span><span class="p">,</span> <span class="n">delayed</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="k">as</span> <span class="nn">smf</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="k">as</span> <span class="nn">sm</span>
+
+<span class="kn">import</span> <span class="nn">doubleml</span> <span class="k">as</span> <span class="nn">dml</span>
+<span class="kn">from</span> <span class="nn">doubleml.datasets</span> <span class="kn">import</span> <span class="n">fetch_401K</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">PolynomialFeatures</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LassoCV</span><span class="p">,</span> <span class="n">LogisticRegressionCV</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">,</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">RandomForestRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.tree</span> <span class="kn">import</span> <span class="n">DecisionTreeClassifier</span><span class="p">,</span> <span class="n">DecisionTreeRegressor</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="kn">import</span> <span class="n">make_pipeline</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">cross_val_predict</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="kn">from</span> <span class="nn">xgboost</span> <span class="kn">import</span> <span class="n">XGBClassifier</span><span class="p">,</span> <span class="n">XGBRegressor</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/sunaybhat/miniconda3/envs/stats256/lib/python3.10/site-packages/xgboost/compat.py:36: FutureWarning: pandas.Int64Index is deprecated and will be removed from pandas in a future version. Use pandas.Index with the appropriate dtype instead.
+  from pandas import MultiIndex, Int64Index
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;font.family&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Times New Roman&quot;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;xtick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;ytick.labelsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.</span><span class="p">,</span> <span class="mi">6</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="orthogonalization-example">
+<h3>Orthogonalization: Example<a class="headerlink" href="#orthogonalization-example" title="Permalink to this headline">¶</a></h3>
+<p>To demonstrate how orthogonalization debiases the data, we will use a simulated data on ice cream sales. The outcome (<span class="math notranslate nohighlight">\(Y\)</span>) is the number of sales, the treatment is price, and the covariates (<span class="math notranslate nohighlight">\(X\)</span>) are temperature, weekday (categorical variable) and cost of the ice cream.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ortho</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ice_cream_sales.csv&#39;</span><span class="p">)</span>
+<span class="n">df_ortho</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>temp</th>
+      <th>weekday</th>
+      <th>cost</th>
+      <th>price</th>
+      <th>sales</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>17.3</td>
+      <td>6</td>
+      <td>1.5</td>
+      <td>5.6</td>
+      <td>173</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>25.4</td>
+      <td>3</td>
+      <td>0.3</td>
+      <td>4.9</td>
+      <td>196</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>23.3</td>
+      <td>5</td>
+      <td>1.5</td>
+      <td>7.6</td>
+      <td>207</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.9</td>
+      <td>1</td>
+      <td>0.3</td>
+      <td>5.3</td>
+      <td>241</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20.2</td>
+      <td>1</td>
+      <td>1.0</td>
+      <td>7.2</td>
+      <td>227</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>There are no missing data as we can see below:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ortho</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>temp       0
+weekday    0
+cost       0
+price      0
+sales      0
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>The figure below shows a heatmap of the Pearsons’ correlation plot of the dataset. The correlation plot shows positive linear relationship between three pairs of variables (sales-temp, cost-price, and price-sales)- two of which makes sense, one does not. As the temperature increases, we often expect ice cream sales to increase because people buy more ice cream if it is hot. Similarly, the price of the ice crease will increase if the purchase cost for the vendor is high. However, the third positive correlation is between price and sales which necessarily doesn’t make sense because if the price is high, people tend to buy less so if anything, there should be a negative correlation. The positive correlation could potentially because of bias.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df_ortho</span><span class="o">.</span><span class="n">corr</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;Greens&quot;</span><span class="p">,</span><span class="n">annot</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">annot_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;fontsize&quot;</span><span class="p">:</span><span class="s1">&#39;large&#39;</span><span class="p">})</span>
+<span class="c1"># plt.savefig(&#39;corr_plot_iceCream.png&#39;, bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/orthogonal_DML_9_0.png" src="_images/orthogonal_DML_9_0.png" />
+</div>
+</div>
+<p>Looking at the scatter plot between sales and price, we can see that the data clearly is biased. First, we can see the two distinct cluster. On weekends, the sales is high because more people go outside which increases the demand. The vendors likely take an advantage of the increased demands and hike up the prices which ultimately reduces the sales. However, the sales appear to be roughly uniform regardless of the price during weekdays. The higher sales on weekends and the consistent sales during weekdays gives a positive relationship between sales and price as shows by a linear fit line (red line) in the figure below.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df_ortho</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;price&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sales&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;weekday&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;RdYlGn&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">);</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;price&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_ortho</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># plt.savefig(&#39;scatter_original_iceCream.png&#39;, bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/orthogonal_DML_11_0.png" src="_images/orthogonal_DML_11_0.png" />
+</div>
+</div>
+<p>To debiase the data, we need two models- treatment and outcome model. The treatment model debiases the bias induced in price using all the other confounders, while the outcome model debiases the bias in sales introduced by the same covariates. Consistent with FWL Theorem, we used OLS to create the treatment and outcome models as shown below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#create a treatment model </span>
+<span class="n">model_treatment</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;price ~ cost + C(weekday) + temp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_ortho</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="c1">#create an outcome model</span>
+<span class="n">model_outcome</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;sales ~ cost + C(weekday) + temp&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_ortho</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="n">debiased_df_ortho</span> <span class="o">=</span> <span class="n">df_ortho</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s2">&quot;resid_output_sales&quot;</span><span class="p">:</span><span class="n">model_outcome</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span>
+                                       <span class="s1">&#39;resid_treatment_price&#39;</span><span class="p">:</span><span class="n">model_treatment</span><span class="o">.</span><span class="n">resid</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>If we plot price-residuals against sales, we can see that we have debiased the bias in price. First, we have uncovered the negative relationship between the price and sales as expected. Most importantly, we can see that decline in sales during the weekend is consistent and not necessarily depending on the price. In the raw data above, we saw that as the price increased, the sales decreased drastically, thus inducing price bias. But in this case, the number of sales on the left and the right side of price-residual roughly appears to be the same.</p>
+<p>Even though we have debiased the price, we can still see that the data has two distinct clusters as a function of the sale day. During weekends, the sales seems to be higher as compared to the weekdays.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">debiased_df_ortho</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;resid_treatment_price&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;sales&quot;</span><span class="p">,</span>
+                <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;weekday&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;RdYlGn&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;resid_treatment_price&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">debiased_df_ortho</span><span class="p">,</span> <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Residuals&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sales&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># plt.savefig(&#39;scatter_priceDebiased_iceCream.png&#39;, bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/orthogonal_DML_15_0.png" src="_images/orthogonal_DML_15_0.png" />
+</div>
+</div>
+<p>Finally, lets see if we can debiase the bias in sales amount. The figure below plots sales-residuals against price-residuals. We can see that the we no longer have distinct clusters of data neither do we see a dramatic decline in sales as the price increase. The slope of the linear fit line (red line) is the debiased estimated of ATE that is obtained by regressing price-residuals on sales-residuals.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">debiased_df_ortho</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;resid_treatment_price&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;resid_output_sales&quot;</span><span class="p">,</span>
+                <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;weekday&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;RdYlGn&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">regplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;resid_treatment_price&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;resid_output_sales&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">debiased_df_ortho</span><span class="p">,</span>
+            <span class="n">scatter</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ci</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Price Residuals&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Sales Residuals&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># plt.savefig(&#39;scatter_doubleDebiased_iceCream.png&#39;, bbox_inches=&#39;tight&#39;)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/orthogonal_DML_17_0.png" src="_images/orthogonal_DML_17_0.png" />
+</div>
+</div>
+<p>This example illustrates the role orthogonalization playing in debiasing the data and more importantly estimating a debiased ATE estimate.</p>
+</div>
+</div>
+<div class="section" id="debiased-double-machine-learning">
+<h2>Debiased/Double Machine Learning<a class="headerlink" href="#debiased-double-machine-learning" title="Permalink to this headline">¶</a></h2>
+<p>Now that we understand orthogonalization, we will dig a little deeper into DML formulations. Good news is that if you understand the intuition behind orthogonalization, you already understand DML. To simplify, DML is fundamentally the same as orthogonalization except that advanced ML algorithms are used to model treatment and outcome instead of OLS.</p>
+<p>One may wonder, ML algorithms are widely used in anything and everything, haven’t researchers used to estimate treatment effect? Yes, they have and that’s when naive approach comes in. In this section, naive approach refers to methods involving ML methods with no modifications. Since DML is a slighly different class of roubly-robust method in a sense that it utilized ML algorith, we introduce Naive or prediction-based ML approach to make a direct comparison against DML and show why DML is better than the naive approach.</p>
+<p>To be consistent with the <a class="reference external" href="https://arxiv.org/abs/1608.00060">Double/Debiased Machine Learning Paper</a>(Chernozhukov et al., 2018), we will use the same notations.</p>
+<p>Let us take a partial linear regression,</p>
+<div class="math notranslate nohighlight">
+\[Y = D\theta_0 + g_0(X) + U, \quad E[U|X, D] = 0 \]</div>
+<div class="math notranslate nohighlight">
+\[D = m_0(X) + V, \quad E[V|X] = 0\]</div>
+<p>where <span class="math notranslate nohighlight">\(Y\)</span> is the outcome, <span class="math notranslate nohighlight">\(D\)</span> is the treatment, <span class="math notranslate nohighlight">\(X\)</span> is the covariates/confounders, and <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are the noise. The quantity of interest is the regression coefficient, <span class="math notranslate nohighlight">\(\theta_0\)</span>.</p>
+<p>Under naive approach, the following steps are undertaken to estimate the <span class="math notranslate nohighlight">\(\theta_0\)</span></p>
+<ol class="simple">
+<li><p>Predict <span class="math notranslate nohighlight">\(Y\)</span> using <span class="math notranslate nohighlight">\(D\)</span> and <span class="math notranslate nohighlight">\(X\)</span>. This gives you <span class="math notranslate nohighlight">\(\hat Y\)</span> in the form of <span class="math notranslate nohighlight">\(D\hat\theta_0 + \hat g_0(X)\)</span></p></li>
+<li><p>Run advanced ML algorithm (e.g., Random Forest) of <span class="math notranslate nohighlight">\(Y - D\hat\theta_0\)</span> on <span class="math notranslate nohighlight">\(X\)</span> to fit <span class="math notranslate nohighlight">\(\hat g_0(X)\)</span></p></li>
+<li><p>Run OLS of <span class="math notranslate nohighlight">\(Y - \hat g_0(X)\)</span> on <span class="math notranslate nohighlight">\(D\)</span> to fit <span class="math notranslate nohighlight">\(\hat\theta_0\)</span>. In other words, <span class="math notranslate nohighlight">\(\hat\theta_0\)</span> is given by:</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ \hat\theta_0 = \left( \frac{1}{n} \sum_{i \in I} D_i^2 \right)^{-1} \frac{1}{n} \sum_{i \in I}D_i(Y_i - \hat g(X_i)) \]</div>
+<p>The naive approach displays excellent predictive performance but introduces a regularization bias in learning <span class="math notranslate nohighlight">\(g_0\)</span>. Lets take a closer look at the decomposition of the estimation error in <span class="math notranslate nohighlight">\(\hat\theta_0\)</span> to islolate the regularization bias,</p>
+<div class="math notranslate nohighlight">
+\[\sqrt{n}(\hat\theta_0 - \theta_0) = \underbrace{\left( \frac{1}{n} \sum_{i \in I} D_i^2 \right)^{-1} \frac{1}{\sqrt{n}} \sum_{i \in I} D_i U_i}_{:a} + \underbrace{\left( \frac{1}{n} \sum_{i \in I} D_i^2 \right)^{-1} \frac{1}{\sqrt{n}} \sum_{i \in I} D_i(g_0(X_i) - \hat g_0(X_i))}_{:b}\]</div>
+<p>The first term <span class="math notranslate nohighlight">\(a\)</span> is well-behaved under mild conditions and has zero mean <span class="math notranslate nohighlight">\(a \rightsquigarrow N(0, \bar\Sigma)\)</span> for some <span class="math notranslate nohighlight">\(\bar\Sigma\)</span>. However, the regularization term (<span class="math notranslate nohighlight">\(b\)</span>) does not center around 0, and in fact diverges for the majority of the ML algorithms. The regularization bias is addressed using orthogonalization. How exactly does DML do it? Using the following three steps:</p>
+<ol class="simple">
+<li><p>Predict <span class="math notranslate nohighlight">\(Y\)</span> and <span class="math notranslate nohighlight">\(D\)</span> using <span class="math notranslate nohighlight">\(X\)</span> using the advanced ML methods to obtain <span class="math notranslate nohighlight">\(\widehat{E[Y|X]}\)</span> and <span class="math notranslate nohighlight">\(\widehat{E[D|X]}\)</span></p></li>
+<li><p>Obtain residuals from the two models i.e. <span class="math notranslate nohighlight">\(\widehat{W} = Y -\widehat{E[Y|X]}\)</span> and <span class="math notranslate nohighlight">\(\widehat{V} = D -\widehat{E[D|X]}\)</span></p></li>
+<li><p>Use orthogonalization, i.e. regress <span class="math notranslate nohighlight">\(\widehat{W}\)</span> on <span class="math notranslate nohighlight">\(\widehat{V}\)</span> to get <span class="math notranslate nohighlight">\(\hat\theta_0\)</span></p></li>
+</ol>
+<p>In DML, the estimation error in <span class="math notranslate nohighlight">\(\hat\theta_0\)</span> can be decomposed into</p>
+<div class="math notranslate nohighlight">
+\[\sqrt{n}(\hat\theta_0-\theta_0) = a^* + b^* + c^*\]</div>
+<p>where,
+$<span class="math notranslate nohighlight">\(a^* = (EV^2)^{-1}\frac{1}{\sqrt{n}}\sum_{i \in I}V_iU_i \rightsquigarrow N(0, \Sigma),\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[b^* = (EV^2)^{-1}\frac{1}{\sqrt{n}}\sum_{i \in I}(\hat m_0(X_i) - m_0(X_i))(\hat g_0(X_i) - g_0(X_i)) \]</div>
+<p>and,</p>
+<div class="math notranslate nohighlight">
+\[ c^*  = o_P(1)\]</div>
+<p>Similar to naive approach, <span class="math notranslate nohighlight">\(a^*\)</span> has a zero mean. The second term, <span class="math notranslate nohighlight">\(b^*\)</span> also nearly as zero mean because the the high predictive performance of advanced ML algorithms ensure that the product of the estimation error in <span class="math notranslate nohighlight">\(\hat m_0\)</span> and <span class="math notranslate nohighlight">\(\hat g_0\)</span> nearly vanishes to zero. The <span class="math notranslate nohighlight">\(c^*\)</span> term represents bias induced due to overfitting, which is sufficiently well-behaved and vanishes in probability under sample splitting. For DML to be doubly robust, it is paramount to split the data into multiple folds while estimating <span class="math notranslate nohighlight">\(\hat\theta_0\)</span>. For a detailed proof on why <span class="math notranslate nohighlight">\(c^*\)</span> vanishes in probability in presence of sample splitting, we invite readers to read the <a class="reference external" href="https://arxiv.org/abs/1608.00060">Double/Debiased Machine Learning Paper</a>.</p>
+<div class="section" id="dml-example-implementation">
+<h3>DML: Example Implementation<a class="headerlink" href="#dml-example-implementation" title="Permalink to this headline">¶</a></h3>
+<p>In this example, we will use the data on 401(k) eligibility (treatment variable) on the total accumulated net financial assess (net_tfa). This dataset was assembled from the 1991 Survey of Income and Porgram Participation. Since the assignment was not random, the DML is implemented to negate bias due to non-randomness assignment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_401k</span> <span class="o">=</span> <span class="n">fetch_401K</span><span class="p">(</span><span class="n">return_type</span><span class="o">=</span><span class="s1">&#39;DataFrame&#39;</span><span class="p">)</span>
+<span class="n">df_401k</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>nifa</th>
+      <th>net_tfa</th>
+      <th>tw</th>
+      <th>age</th>
+      <th>inc</th>
+      <th>fsize</th>
+      <th>educ</th>
+      <th>db</th>
+      <th>marr</th>
+      <th>twoearn</th>
+      <th>e401</th>
+      <th>p401</th>
+      <th>pira</th>
+      <th>hown</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3322</th>
+      <td>13198.0</td>
+      <td>20418.0</td>
+      <td>50418.0</td>
+      <td>51</td>
+      <td>17616.0</td>
+      <td>3</td>
+      <td>12</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>1526</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>43</td>
+      <td>17844.0</td>
+      <td>3</td>
+      <td>8</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>5507</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>1500.0</td>
+      <td>43</td>
+      <td>19074.0</td>
+      <td>1</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>0.0</td>
+      <td>-1000.0</td>
+      <td>-325.0</td>
+      <td>29</td>
+      <td>14580.0</td>
+      <td>3</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3687</th>
+      <td>6000.0</td>
+      <td>12800.0</td>
+      <td>12800.0</td>
+      <td>31</td>
+      <td>50529.0</td>
+      <td>2</td>
+      <td>16</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The description of the features are highlighted below:</p>
+<ol class="simple">
+<li><p><strong>age:</strong> age of the employee</p></li>
+<li><p><strong>inc:</strong> income amount</p></li>
+<li><p><strong>fsize:</strong> family size</p></li>
+<li><p><strong>educ:</strong> years of education</p></li>
+<li><p><strong>marr:</strong> marriage indicator (1: married, 0: otherwise)</p></li>
+<li><p><strong>twoearn:</strong> two-earner status indicator in the family</p></li>
+<li><p><strong>db:</strong> a defined benefit pension status indicator</p></li>
+<li><p><strong>pira:</strong> an IRA participation indicator</p></li>
+<li><p><strong>hown:</strong> a home ownership indicator</p></li>
+<li><p><strong>net_tfa:</strong> net total financial assets. Defined as the sum fo IRA balances, 401(k) balances, checking accounts, U.S. saving bonds, stocks, mutual funds, etc.</p></li>
+</ol>
+<p>As discussed below, we will not use all of the features in this example.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_401k</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(9915, 14)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Difference in mean between the employees who were eligible vs not eligible.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_401k</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;e401&#39;</span><span class="p">)[</span><span class="s1">&#39;net_tfa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>e401
+0    10788.044922
+1    30347.388672
+Name: net_tfa, dtype: float32
+</pre></div>
+</div>
+</div>
+</div>
+<p>Difference in mean between the employees who opted to participate in 401(k) vs those that did not participate.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_401k</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;p401&#39;</span><span class="p">)[</span><span class="s1">&#39;net_tfa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>p401
+0    10890.477539
+1    38262.058594
+Name: net_tfa, dtype: float32
+</pre></div>
+</div>
+</div>
+</div>
+<p>For consistency, we will use the same covariates used in the <a class="reference external" href="https://arxiv.org/abs/1608.00060">Double/Debiased Machine Learning Paper</a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">features_cherno</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;inc&#39;</span><span class="p">,</span> <span class="s1">&#39;fsize&#39;</span><span class="p">,</span> <span class="s1">&#39;educ&#39;</span><span class="p">,</span> <span class="s1">&#39;marr&#39;</span><span class="p">,</span> <span class="s1">&#39;twoearn&#39;</span><span class="p">,</span> <span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;pira&#39;</span><span class="p">,</span> <span class="s1">&#39;hown&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#outcome model </span>
+<span class="n">my</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;net_tfa ~ &#39;</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features_cherno</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df_401k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+
+<span class="c1">#treatment model</span>
+<span class="n">mt</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;e401 ~  &#39;</span> <span class="o">+</span> <span class="s1">&#39;+&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">features_cherno</span><span class="p">),</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df_401k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>One of the limitations we have not mentioned before is that the orthogonalization is limited to linear relationship between the covariates, treatment, and outcome models. Of course, the linear regression can be extended to a polynomial regression to capture nonlinear relationship but having to specify the nonlinear functional form is not that flexible and desirable. We implement linear and polynomial regression to shed light on the high-level predictive performance of commonly used ML algorithms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">orthogonal</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;tfa_res~e401_res&quot;</span><span class="p">,</span> 
+        <span class="n">data</span><span class="o">=</span><span class="n">df_401k</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tfa_res</span><span class="o">=</span><span class="n">my</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="c1"># sales residuals</span>
+                          <span class="n">e401_res</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span> <span class="c1"># price residuals</span>
+       <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">orthogonal</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table class="simpletable">
+<tr>
+      <td></td>         <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+</tr>
+<tr>
+  <th>Intercept</th> <td>  2.19e-09</td> <td>  559.394</td> <td> 3.91e-12</td> <td> 1.000</td> <td>-1096.527</td> <td> 1096.527</td>
+</tr>
+<tr>
+  <th>e401_res</th>  <td> 5896.1984</td> <td> 1249.446</td> <td>    4.719</td> <td> 0.000</td> <td> 3447.029</td> <td> 8345.367</td>
+</tr>
+</table></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## creating a dummy dataframe for easy data parsing </span>
+<span class="n">dummydf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">orthogonal</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coef&#39;</span><span class="p">:</span> <span class="n">orthogonal</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;e401_res&#39;</span><span class="p">],</span>
+     <span class="s1">&#39;std err&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+     <span class="s1">&#39;2.5 %&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+     <span class="s1">&#39;97.5 %&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">2</span><span class="p">]}</span>
+<span class="n">df_linear</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">d</span><span class="p">])</span>
+<span class="n">df_linear</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5896.198421</td>
+      <td>1249.446</td>
+      <td>3447.029</td>
+      <td>8345.367</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>Creating a polynomial regression</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">my_poly</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;net_tfa ~ age + inc + educ + fsize + marr + twoearn + db + pira + hown + age*fsize + educ*age + fsize**2&#39;</span><span class="p">,</span>
+                  <span class="n">data</span> <span class="o">=</span> <span class="n">df_401k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+<span class="n">mt_poly</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s1">&#39;e401 ~ age + inc + educ + fsize + marr + twoearn + db + pira + hown&#39;</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">df_401k</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">polynomial</span> <span class="o">=</span> <span class="n">smf</span><span class="o">.</span><span class="n">ols</span><span class="p">(</span><span class="s2">&quot;tfa_res~e401_res&quot;</span><span class="p">,</span> 
+        <span class="n">data</span><span class="o">=</span><span class="n">df_401k</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tfa_res</span><span class="o">=</span><span class="n">my_poly</span><span class="o">.</span><span class="n">resid</span><span class="p">,</span> <span class="c1"># sales residuals</span>
+                          <span class="n">e401_res</span><span class="o">=</span><span class="n">mt_poly</span><span class="o">.</span><span class="n">resid</span><span class="p">)</span> <span class="c1"># price residuals</span>
+       <span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>As we can see, for the polynomial regression, the estimated ATE is slighly higher by about $200 as compared to OLS. This indicates that the data is highly nonlinear and we can leverage the ML algorithms to capture the nonlinear relationship.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dummydf</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">polynomial</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span><span class="o">.</span><span class="n">tables</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coef&#39;</span><span class="p">:</span> <span class="n">polynomial</span><span class="o">.</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;e401_res&#39;</span><span class="p">],</span>
+     <span class="s1">&#39;std err&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+     <span class="s1">&#39;2.5 %&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">2</span><span class="p">],</span>
+     <span class="s1">&#39;97.5 %&#39;</span><span class="p">:</span><span class="n">dummydf</span><span class="p">[</span><span class="mi">6</span><span class="p">][</span><span class="mi">2</span><span class="p">]}</span>
+<span class="n">df_polynomial</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">d</span><span class="p">])</span>
+<span class="n">df_polynomial</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6084.770503</td>
+      <td>1247.310</td>
+      <td>3639.789</td>
+      <td>8529.752</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialize DoubleMLData (data-backend of DoubleML)</span>
+<span class="n">data_dml_base</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLData</span><span class="p">(</span><span class="n">df_401k</span><span class="p">,</span>
+                                 <span class="n">y_col</span><span class="o">=</span><span class="s1">&#39;net_tfa&#39;</span><span class="p">,</span>
+                                 <span class="n">d_cols</span><span class="o">=</span><span class="s1">&#39;e401&#39;</span><span class="p">,</span>
+                                 <span class="n">x_cols</span><span class="o">=</span><span class="n">features_cherno</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>In the following section, Random Forest, Xtreme Gradient Boosting (XGBoost), and Regression trees are implemented to estimate the ATE in terms of the total financial asset. Two variations of implementation are provided (3 folds and 5 folds data splits) to highlight the role sample spliting plays in reducing the bias.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Random Forest with 3 folds split</span>
+<span class="n">randomForest</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">randomForest_class</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_forest</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                                 <span class="n">ml_g</span> <span class="o">=</span> <span class="n">randomForest</span><span class="p">,</span>
+                                 <span class="n">ml_m</span> <span class="o">=</span> <span class="n">randomForest_class</span><span class="p">,</span>
+                                 <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
+                                <span class="n">n_rep</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">forest_summary3</span> <span class="o">=</span> <span class="n">dml_plr_forest</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">forest_summary3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>9018.368261</td>
+      <td>1315.291812</td>
+      <td>6.856553</td>
+      <td>7.054183e-12</td>
+      <td>6440.44368</td>
+      <td>11596.292842</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Random Forest with 5 folds split</span>
+<span class="n">randomForest</span> <span class="o">=</span> <span class="n">RandomForestRegressor</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">randomForest_class</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span>
+    <span class="n">n_estimators</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_forest</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                                 <span class="n">ml_g</span> <span class="o">=</span> <span class="n">randomForest</span><span class="p">,</span>
+                                 <span class="n">ml_m</span> <span class="o">=</span> <span class="n">randomForest_class</span><span class="p">,</span>
+                                 <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                                <span class="n">n_rep</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_forest</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">forest_summary5</span> <span class="o">=</span> <span class="n">dml_plr_forest</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">forest_summary5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>8961.175025</td>
+      <td>1309.593551</td>
+      <td>6.842715</td>
+      <td>7.770632e-12</td>
+      <td>6394.418831</td>
+      <td>11527.931219</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gradient Boosted Trees with 3 folds split</span>
+<span class="n">boost</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">objective</span> <span class="o">=</span> <span class="s2">&quot;reg:squarederror&quot;</span><span class="p">,</span>
+                     <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">boost_class</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">use_label_encoder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">objective</span> <span class="o">=</span> <span class="s2">&quot;binary:logistic&quot;</span><span class="p">,</span> <span class="n">eval_metric</span> <span class="o">=</span> <span class="s2">&quot;logloss&quot;</span><span class="p">,</span>
+                            <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_boost</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                                <span class="n">ml_g</span> <span class="o">=</span> <span class="n">boost</span><span class="p">,</span>
+                                <span class="n">ml_m</span> <span class="o">=</span> <span class="n">boost_class</span><span class="p">,</span>
+                                <span class="n">dml_procedure</span><span class="o">=</span><span class="s1">&#39;dml2&#39;</span><span class="p">,</span>
+                                <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+                                <span class="n">n_rep</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_boost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">boost_summary3</span> <span class="o">=</span> <span class="n">dml_plr_boost</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">boost_summary3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>9002.744739</td>
+      <td>1399.883887</td>
+      <td>6.431065</td>
+      <td>1.267127e-10</td>
+      <td>6259.022737</td>
+      <td>11746.46674</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gradient Boosted Trees with 5 folds split</span>
+<span class="n">boost</span> <span class="o">=</span> <span class="n">XGBRegressor</span><span class="p">(</span><span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">objective</span> <span class="o">=</span> <span class="s2">&quot;reg:squarederror&quot;</span><span class="p">,</span>
+                     <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">35</span><span class="p">)</span>
+<span class="n">boost_class</span> <span class="o">=</span> <span class="n">XGBClassifier</span><span class="p">(</span><span class="n">use_label_encoder</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="n">objective</span> <span class="o">=</span> <span class="s2">&quot;binary:logistic&quot;</span><span class="p">,</span> <span class="n">eval_metric</span> <span class="o">=</span> <span class="s2">&quot;logloss&quot;</span><span class="p">,</span>
+                            <span class="n">eta</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_boost</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                                <span class="n">ml_g</span> <span class="o">=</span> <span class="n">boost</span><span class="p">,</span>
+                                <span class="n">ml_m</span> <span class="o">=</span> <span class="n">boost_class</span><span class="p">,</span>
+                                <span class="n">dml_procedure</span><span class="o">=</span><span class="s1">&#39;dml2&#39;</span><span class="p">,</span>
+                                <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span>
+                                <span class="n">n_rep</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_boost</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">boost_summary5</span> <span class="o">=</span> <span class="n">dml_plr_boost</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">boost_summary5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>8852.014728</td>
+      <td>1383.993593</td>
+      <td>6.395994</td>
+      <td>1.595063e-10</td>
+      <td>6139.437131</td>
+      <td>11564.592325</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regression Decision Trees with 3 folds split</span>
+<span class="n">trees</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0047</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">203</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">67</span><span class="p">)</span>
+<span class="n">trees_class</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0042</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_tree</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                               <span class="n">ml_g</span> <span class="o">=</span> <span class="n">trees</span><span class="p">,</span>
+                               <span class="n">ml_m</span> <span class="o">=</span> <span class="n">trees_class</span><span class="p">,</span>
+                               <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
+                               <span class="n">n_rep</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tree_summary3</span> <span class="o">=</span> <span class="n">dml_plr_tree</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">tree_summary3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>8494.390142</td>
+      <td>1332.352929</td>
+      <td>6.375481</td>
+      <td>1.823902e-10</td>
+      <td>5883.026386</td>
+      <td>11105.753898</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regression Decision Trees with 3 folds split</span>
+<span class="n">trees</span> <span class="o">=</span> <span class="n">DecisionTreeRegressor</span><span class="p">(</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0047</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">203</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">67</span><span class="p">)</span>
+<span class="n">trees_class</span> <span class="o">=</span> <span class="n">DecisionTreeClassifier</span><span class="p">(</span>
+    <span class="n">max_depth</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ccp_alpha</span><span class="o">=</span><span class="mf">0.0042</span><span class="p">,</span> <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">104</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">34</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">dml_plr_tree</span> <span class="o">=</span> <span class="n">dml</span><span class="o">.</span><span class="n">DoubleMLPLR</span><span class="p">(</span><span class="n">data_dml_base</span><span class="p">,</span>
+                               <span class="n">ml_g</span> <span class="o">=</span> <span class="n">trees</span><span class="p">,</span>
+                               <span class="n">ml_m</span> <span class="o">=</span> <span class="n">trees_class</span><span class="p">,</span>
+                               <span class="n">n_folds</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                               <span class="n">n_rep</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">dml_plr_tree</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">store_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">tree_summary5</span> <span class="o">=</span> <span class="n">dml_plr_tree</span><span class="o">.</span><span class="n">summary</span>
+
+<span class="n">tree_summary5</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>t</th>
+      <th>P&gt;|t|</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>e401</th>
+      <td>8365.634772</td>
+      <td>1319.168039</td>
+      <td>6.341599</td>
+      <td>2.273925e-10</td>
+      <td>5780.112926</td>
+      <td>10951.156619</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ortho_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">df_linear</span><span class="p">,</span> <span class="n">df_polynomial</span><span class="p">))</span>
+<span class="n">ortho_summary</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="s1">&#39;polynomial&#39;</span><span class="p">]</span>
+<span class="n">plr_summary_3folds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span> <span class="n">forest_summary3</span><span class="p">,</span> <span class="n">tree_summary3</span><span class="p">,</span> <span class="n">boost_summary3</span><span class="p">))</span>
+<span class="n">plr_summary_3folds</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;forest&#39;</span><span class="p">,</span> <span class="s1">&#39;tree&#39;</span><span class="p">,</span> <span class="s1">&#39;xgboost&#39;</span><span class="p">]</span>
+<span class="n">plr_summary_3folds</span><span class="p">[[</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span><span class="s1">&#39;std err&#39;</span><span class="p">,</span> <span class="s1">&#39;2.5 %&#39;</span><span class="p">,</span> <span class="s1">&#39;97.5 %&#39;</span><span class="p">]]</span>
+
+<span class="n">plr_summary_5folds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span> <span class="n">forest_summary5</span><span class="p">,</span> <span class="n">tree_summary5</span><span class="p">,</span> <span class="n">boost_summary5</span><span class="p">))</span>
+<span class="n">plr_summary_5folds</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span> <span class="s1">&#39;forest&#39;</span><span class="p">,</span> <span class="s1">&#39;tree&#39;</span><span class="p">,</span> <span class="s1">&#39;xgboost&#39;</span><span class="p">]</span>
+<span class="n">plr_summary_5folds</span><span class="p">[[</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span><span class="s1">&#39;std err&#39;</span><span class="p">,</span> <span class="s1">&#39;2.5 %&#39;</span><span class="p">,</span> <span class="s1">&#39;97.5 %&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>forest</th>
+      <td>8961.175025</td>
+      <td>1309.593551</td>
+      <td>6394.418831</td>
+      <td>11527.931219</td>
+    </tr>
+    <tr>
+      <th>tree</th>
+      <td>8365.634772</td>
+      <td>1319.168039</td>
+      <td>5780.112926</td>
+      <td>10951.156619</td>
+    </tr>
+    <tr>
+      <th>xgboost</th>
+      <td>8852.014728</td>
+      <td>1383.993593</td>
+      <td>6139.437131</td>
+      <td>11564.592325</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>The summary of orthogonalization, DML with 3 folds, and DML with 5 folds sample splits are shown in the dataframe below. We can see that, as we increase the sample splits, the standard error decrease which gives us a tighter confidence bounds and a more robust ATE estimate</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_summary</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">((</span><span class="n">ortho_summary</span><span class="p">,</span> <span class="n">plr_summary_3folds</span><span class="p">,</span>
+                        <span class="n">plr_summary_5folds</span><span class="p">))</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;index&#39;</span><span class="p">:</span> <span class="s1">&#39;ML&#39;</span><span class="p">})</span>
+<span class="n">df_summary</span><span class="p">[</span><span class="s1">&#39;Model&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;Orthogonal&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+                                      <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;PLR (3 folds)&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                                      <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s1">&#39;PLR (5 folds)&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="n">df_summary</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;Model&#39;</span><span class="p">,</span> <span class="s1">&#39;ML&#39;</span><span class="p">])[[</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span><span class="s1">&#39;std err&#39;</span><span class="p">,</span> <span class="s1">&#39;2.5 %&#39;</span><span class="p">,</span> <span class="s1">&#39;97.5 %&#39;</span><span class="p">]]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>coef</th>
+      <th>std err</th>
+      <th>2.5 %</th>
+      <th>97.5 %</th>
+    </tr>
+    <tr>
+      <th>Model</th>
+      <th>ML</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">Orthogonal</th>
+      <th>linear</th>
+      <td>5896.198421</td>
+      <td>1249.446</td>
+      <td>3447.029</td>
+      <td>8345.367</td>
+    </tr>
+    <tr>
+      <th>polynomial</th>
+      <td>6084.770503</td>
+      <td>1247.310</td>
+      <td>3639.789</td>
+      <td>8529.752</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">PLR (3 folds)</th>
+      <th>forest</th>
+      <td>9018.368261</td>
+      <td>1315.291812</td>
+      <td>6440.44368</td>
+      <td>11596.292842</td>
+    </tr>
+    <tr>
+      <th>tree</th>
+      <td>8494.390142</td>
+      <td>1332.352929</td>
+      <td>5883.026386</td>
+      <td>11105.753898</td>
+    </tr>
+    <tr>
+      <th>xgboost</th>
+      <td>9002.744739</td>
+      <td>1399.883887</td>
+      <td>6259.022737</td>
+      <td>11746.46674</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">PLR (5 folds)</th>
+      <th>forest</th>
+      <td>8961.175025</td>
+      <td>1309.593551</td>
+      <td>6394.418831</td>
+      <td>11527.931219</td>
+    </tr>
+    <tr>
+      <th>tree</th>
+      <td>8365.634772</td>
+      <td>1319.168039</td>
+      <td>5780.112926</td>
+      <td>10951.156619</td>
+    </tr>
+    <tr>
+      <th>xgboost</th>
+      <td>8852.014728</td>
+      <td>1383.993593</td>
+      <td>6139.437131</td>
+      <td>11564.592325</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<p>Double Machine Learning (DML) leverages predictive power of advance Machine Learning (ML) algrotighms in estimating heterogeneous treatment effects when all potential confounders are observed and are also high-dimensional. At its core, DML utilizes orthogonalization to address the regularization bias induced by ML algorithm in estimating high-dimensional nuisance parameters. DML requires two ML methods to predict treatment and outcome using the observed covariates. The residuals from the treatment and outcome model is then used to estimate the causal parameter of interest, the treatment effect. The purpose of the treatment residuals is to represent the debiased version of the treatment model because, by definition, residuals are orthogonal to the features used to contruct the model. Similarly, the outcome residuals denoises the outcome model because the outcome residuals can essentially be viewed as a version of the treatment where all the variance from the features are explained. Thus, DML provides a general yet robust framework for estimating and performing inference on treatment/causal variables.</p>
+</div>
+<div class="section" id="references">
+<h3>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>1. Chernozhukov, V., Chetverikov, D., Demirer, M., Duflo, E., Hansen, C., Newey, W., &amp; Robins, J. (2018). Double/debiased machine learning for treatment and structural parameters.
+
+2. Glynn, A. N., &amp; Quinn, K. M. (2010). An introduction to the augmented inverse propensity weighted estimator. Political analysis, 18(1), 36-56.
+
+3. https://matheusfacure.github.io/python-causality-handbook/22-Debiased-Orthogonal-Machine-Learning.html
+
+4. https://www.youtube.com/watch?v=eHOjmyoPCFU&amp;t=444s
+
+5. Bach, P., Chernozhukov, V., Kurz, M. S., and Spindler, M. (2022), DoubleML - An Object-Oriented Implementation of Double Machine Learning in Python, Journal of Machine Learning Research, 23(53): 1-6, https://www.jmlr.org/papers/v23/21-0862.html.
+
+6. Frisch, R., &amp; Waugh, F. V. (1933). Partial time regressions as compared with individual trends. Econometrica: Journal of the Econometric Society, 387-401.
+
+7. Lovell, M. C. (1963). Seasonal adjustment of economic time series and multiple regression analysis. Journal of the American Statistical Association, 58(304), 993-1010.
+
+8. Lovell, M. C. (2008). A simple proof of the FWL theorem. The Journal of Economic Education, 39(1), 88-91.
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="DR_Methods.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Doubly Robust Methods</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="Conclusion.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><strong>Conclusion and New Directions</strong></p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By S. Bhat, A. Chatterjee, L. Dahal, N. Hoffmann, A. Nanda<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

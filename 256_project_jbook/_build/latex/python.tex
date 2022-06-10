@@ -86,7 +86,7 @@
 \title{Advanced Adjustment - An Introduction to Doubly Robust Methods}
 \date{Jun 10, 2022}
 \release{}
-\author{UCLA Stats 256 Spring 2022}
+\author{S.\@{} Bhat, A.\@{} Chatterjee, L.\@{} Dahal, N.\@{} Hoffmann, A.\@{} Nanda}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{}
 \makeindex
@@ -125,15 +125,19 @@ Doubly robust methods estimate two models:
 \item {} 
 \sphinxAtStartPar
 an \sphinxstyleemphasis{outcome model}
-\$\(\mu_d(X_i) = E(Y_i \mid D_i = d, X_i)\)\$
 
+\end{itemize}
+\begin{equation*}
+\begin{split}\mu_d(X_i) = E(Y_i \mid D_i = d, X_i)\end{split}
+\end{equation*}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 and a \sphinxstyleemphasis{exposure model} (or treament model or propensity score):
-\$\(\pi(X_i) = E(D_i \mid X_i)\)\$
 
 \end{itemize}
-
+\begin{equation*}
+\begin{split}\pi(X_i) = E(D_i \mid X_i)\end{split}
+\end{equation*}
 \sphinxAtStartPar
 where \(\mu_d(\cdot)\) is the model of control or treatment \(D_i = d=\{0, 1\}\), \(X_i\) is a vector of covariates for unit \(i = 1, \ldots, N\) for treatment (1) and control (0), \(Y_i\) is the outcome, and \(\pi(\cdot)\) is the exposure model. The covariates included in \(X_i\) can be different for the two models.
 
@@ -151,8 +155,11 @@ But Kang and Schafer (2007) argue that doubly robust methods are older. They cit
 
 \sphinxAtStartPar
 Arguably, doubly robust methods go back even further than this. The form of doubly robust methods is similar to residual\sphinxhyphen{}on\sphinxhyphen{}residual regression, which dates back to Frisch, Waugh, and Lovell (1933) famous FWL theorem:
-\$\(\beta_D = \frac{\text{Cov}(\tilde Y_i, \tilde D_i)}{\text{Var}(\tilde D_i)}\)\(
-where \)\textbackslash{}tilde D\_i\( is the residual part of \)D\_i\( after regressing it on \)X\_i\(, and \)\textbackslash{}tilde Y\_i\( is the residual part of \)Y\_i\( after regressing it on \)X\_i\(. This formulation writes the regression coefficient as composed of an outcome model (\)\textbackslash{}tilde Y\_i\() and exposure model (\)\textbackslash{}tilde D\_i\$), the two models used in doubly robust estimators.
+\begin{equation*}
+\begin{split}\beta_D = \frac{\text{Cov}(\tilde Y_i, \tilde D_i)}{\text{Var}(\tilde D_i)}\end{split}
+\end{equation*}
+\sphinxAtStartPar
+where \(\tilde D_i\) is the residual part of \(D_i\) after regressing it on \(X_i\), and \(\tilde Y_i\) is the residual part of \(Y_i\) after regressing it on \(X_i\). This formulation writes the regression coefficient as composed of an outcome model (\(\tilde Y_i\)) and exposure model (\(\tilde D_i\)), the two models used in doubly robust estimators.
 
 \sphinxAtStartPar
 There are also links between doubly robust methods and matching with regression adjustment. This work goes back to at least Rubin (1973), who suggested that regression adjustment in matched data produces less biased estimates that either matching (exposure adjustment) or regression (outcome adjustment) do by themselves.
@@ -204,38 +211,51 @@ To demonstrate double robustness, this section presents one of the simpler doubl
 
 \sphinxAtStartPar
 We can write this estimator as follows:
-\$\(\begin{aligned}
+\begin{equation*}
+\begin{split}\begin{aligned}
 \widehat{ATE} = &\frac{1}{N} \sum_{i=1}^N \left( \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) \right) \\
 &- \frac{1}{N} \sum_{i=1}^N \left( \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i) \right)
-\end{aligned}\)\$
-
+\end{aligned}\end{split}
+\end{equation*}
 \sphinxAtStartPar
 For each individual in the sample, this estimator calculates two quantities:
 \begin{itemize}
 \item {} 
 \sphinxAtStartPar
 The treated potential outcome
-\$\(\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\)\$
 
+\end{itemize}
+\begin{equation*}
+\begin{split}\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\end{split}
+\end{equation*}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
 The control potential outcome
-\$\(\hat Y_{0i} = \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i)\)\$
 
 \end{itemize}
-
+\begin{equation*}
+\begin{split}\hat Y_{0i} = \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i)\end{split}
+\end{equation*}
 \sphinxAtStartPar
 Let’s focus on the treated model:
-\$\(\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\)\$
-
+\begin{equation*}
+\begin{split}\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)\end{split}
+\end{equation*}
 \sphinxAtStartPar
 First, assume that the outcome model \(\mu_1(X_i)\) is \sphinxstyleemphasis{correctly} specified and the exposure model \(\pi(X_i)\) is \sphinxstyleemphasis{incorreclty} specified. Let’s also assume (for now) that we’re dealing with a treated unit, i.e. \(D_i = 1\). Then
-\$\(\hat \mu_1 (X_i) = Y_i\)\(
+\begin{equation*}
+\begin{split}\hat \mu_1 (X_i) = Y_i\end{split}
+\end{equation*}
+\sphinxAtStartPar
 and hence
-\)\(\hat Y_{1i} = \frac{D_i(0)}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\)\(
-So the model relies *only* on the outcome model! The incorrectly specified exposure model completely disappears from the equation. If we're dealing with a control unit (\)D\_i=0\(), we get the same result:
-\)\(\hat Y_{1i} = \frac{0(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\)\$
-
+\begin{equation*}
+\begin{split}\hat Y_{1i} = \frac{D_i(0)}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\end{split}
+\end{equation*}
+\sphinxAtStartPar
+So the model relies \sphinxstyleemphasis{only} on the outcome model! The incorrectly specified exposure model completely disappears from the equation. If we’re dealing with a control unit (\(D_i=0\)), we get the same result:
+\begin{equation*}
+\begin{split}\hat Y_{1i} = \frac{0(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).\end{split}
+\end{equation*}
 \sphinxAtStartPar
 Now, what if the \sphinxstyleemphasis{exposure} model \(\pi(X_i)\) is correctly specified and the outcome model \(\mu_1(X)\) is incorrect? First, we rewrite the estimator for the treated outcome:
 \begin{equation*}
@@ -247,10 +267,14 @@ Now, what if the \sphinxstyleemphasis{exposure} model \(\pi(X_i)\) is correctly 
 \end{equation*}
 \sphinxAtStartPar
 Since the exposure model is correclty specified, we have \(D_i = \hat \pi(X_i)\) on average, so
-\$\(E[D_i - \hat \pi(X_i)] = 0.\)\(
-This means that the second term in equation \)(*)\( is 0, so
-\)\(E[\hat Y_{1i}]= E \left [ \frac{D_iY_i}{\hat \pi (X_i)}\right].\)\$
-
+\begin{equation*}
+\begin{split}E[D_i - \hat \pi(X_i)] = 0.\end{split}
+\end{equation*}
+\sphinxAtStartPar
+This means that the second term in equation \((*)\) is 0, so
+\begin{equation*}
+\begin{split}E[\hat Y_{1i}]= E \left [ \frac{D_iY_i}{\hat \pi (X_i)}\right].\end{split}
+\end{equation*}
 \sphinxAtStartPar
 This shows that when the exposure model is correct, then the estimator depends \sphinxstyleemphasis{only} on the exposure model. We can make similar arguments for the control model \(\hat Y_{0i}\).
 
@@ -381,7 +405,7 @@ We begin by visualizing the achievement scores of treated and untreated cohorts 
 The following code block implements the naive ATE, the standard IPW, and finally the AIPW methods as python functions. Note that propensity score, or the exposure model, is constructed as a \sphinxstyleemphasis{Logistic Regression problem}, and the outcome model is generated as a \sphinxstyleemphasis{Linear Regression problem}.
 
 \sphinxAtStartPar
-We do this to allow us to readily run many iterations of each method. We will use a bootstrap subsample method, where we will sample 1\% of the original data (\textasciitilde{}100 data points), 100 times. This will allow us to generate a distribution of ATEs with an empirical standard deviation. Thus we can report our results comparing each of the three methods using various exposure and outcome models with 95\% confidence intervals as well.
+We do this to allow us to readily run many iterations of each method. We will use a bootstrap subsample method, where we will sample the full dataset with replacement 100 times. This will allow us to generate a distribution of ATEs with an empirical standard deviation. Thus we can report our results comparing each of the three methods using various exposure and outcome models with 95\% confidence intervals as well.
 
 \begin{sphinxuseclass}{cell}\begin{sphinxVerbatimInput}
 
@@ -416,7 +440,7 @@ We do this to allow us to readily run many iterations of each method. We will us
 \PYG{c+c1}{\PYGZsh{}\PYGZsh{}\PYGZsh{} AIPW}
 \PYG{k}{def} \PYG{n+nf}{AIPW}\PYG{p}{(}\PYG{n}{df}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{T}\PYG{p}{,} \PYG{n}{Y}\PYG{p}{,}\PYG{n}{true\PYGZus{}ps} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{,}\PYG{n}{true\PYGZus{}mus} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{)}\PYG{p}{:}
     \PYG{k}{if} \PYG{n}{true\PYGZus{}ps}\PYG{p}{:}
-        \PYG{n}{p\PYGZus{}scores} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{(}\PYG{n}{C}\PYG{o}{=}\PYG{l+m+mf}{1e6}\PYG{p}{,}\PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{500}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{,} \PYG{n}{df}\PYG{p}{[}\PYG{n}{T}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{predict\PYGZus{}proba}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}
+        \PYG{n}{p\PYGZus{}scores} \PYG{o}{=} \PYG{n}{LogisticRegression}\PYG{p}{(}\PYG{n}{C}\PYG{o}{=}\PYG{l+m+mf}{1e6}\PYG{p}{,}\PYG{n}{max\PYGZus{}iter}\PYG{o}{=}\PYG{l+m+mi}{1000}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{,} \PYG{n}{df}\PYG{p}{[}\PYG{n}{T}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{predict\PYGZus{}proba}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{]}
     \PYG{k}{else}\PYG{p}{:}
         \PYG{n}{p\PYGZus{}scores} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{l+m+mf}{0.1}\PYG{p}{,} \PYG{l+m+mf}{0.9}\PYG{p}{,} \PYG{n}{df}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
 
@@ -440,90 +464,20 @@ We do this to allow us to readily run many iterations of each method. We will us
 \subsection{Experiments and Results}
 \label{\detokenize{DR_Methods:experiments-and-results}}
 \sphinxAtStartPar
-The following  block shows our bootstrap sampling method results displayed (100 iterations for \textasciitilde{}100 samples of 1\% of dataset). In this initial experiment, we correctly specify both the exposure and outcome models. The results are displayed in the plot and table below.
+The following  block shows our bootstrap sampling method results displayed (100 iterations for the full dataset). In this initial experiment, we correctly specify both the exposure and outcome models. The results are displayed in the plot and table below.
 
 \begin{sphinxuseclass}{cell}
 \begin{sphinxuseclass}{tag_hide-input}\begin{sphinxVerbatimOutput}
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{g+gt}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
-\PYG{n+ne}{KeyboardInterrupt}\PYG{g+gWhitespace}{                         }Traceback (most recent call last)
-\PYG{n+nn}{Input In [6],} in \PYG{n+ni}{\PYGZlt{}cell line: 6\PYGZgt{}}\PYG{n+nt}{()}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{6} \PYG{k}{for} \PYG{n}{iSample} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{bootstrap\PYGZus{}sample}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{7}     \PYG{n}{df\PYGZus{}bootstrap} \PYG{o}{=} \PYG{n}{df\PYGZus{}categ}\PYG{o}{.}\PYG{n}{sample}\PYG{p}{(}\PYG{n}{frac}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{8}     \PYG{n}{ate}\PYG{p}{,} \PYG{n}{ps}\PYG{p}{,} \PYG{n}{mu0}\PYG{p}{,} \PYG{n}{mu1} \PYG{o}{=} \PYG{n}{AIPW}\PYG{p}{(}\PYG{n}{df\PYGZus{}bootstrap}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{T}\PYG{p}{,} \PYG{n}{Y}\PYG{p}{)}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{9}     \PYG{n}{AIPW\PYGZus{}ates}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{ate}\PYG{p}{)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{10}     \PYG{n}{ate}\PYG{p}{,} \PYG{n}{ps}\PYG{p}{,}\PYG{n}{\PYGZus{}} \PYG{o}{=} \PYG{n}{IPW}\PYG{p}{(}\PYG{n}{df\PYGZus{}bootstrap}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{T}\PYG{p}{,} \PYG{n}{Y}\PYG{p}{,}\PYG{n}{true\PYGZus{}ps}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
-
-\PYG{n+nn}{Input In [5],} in \PYG{n+ni}{AIPW}\PYG{n+nt}{(df, X, T, Y, true\PYGZus{}ps, true\PYGZus{}mus)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{34} \PYG{k}{if} \PYG{n}{true\PYGZus{}mus}\PYG{p}{:}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{35}     \PYG{n}{mu0} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{query}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{T}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{==0}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{,} \PYG{n}{df}\PYG{o}{.}\PYG{n}{query}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{T}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{==0}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{n}{Y}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{36}     \PYG{n}{mu1} \PYG{o}{=} \PYG{n}{LinearRegression}\PYG{p}{(}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{df}\PYG{o}{.}\PYG{n}{query}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{T}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{==1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{,} \PYG{n}{df}\PYG{o}{.}\PYG{n}{query}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{T}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{==1}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{[}\PYG{n}{Y}\PYG{p}{]}\PYG{p}{)}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{df}\PYG{p}{[}\PYG{n}{X}\PYG{p}{]}\PYG{p}{)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{37} \PYG{k}{else}\PYG{p}{:}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{38}     \PYG{n}{mu0} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{uniform}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{df}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/linear\PYGZus{}model/\PYGZus{}base.py:362,} in \PYG{n+ni}{LinearModel.predict}\PYG{n+nt}{(self, X)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{348} \PYG{k}{def} \PYG{n+nf}{predict}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{349}     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{350}\PYG{l+s+sd}{     Predict using the linear model.}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{351}\PYG{l+s+sd}{ }
-\PYG{l+s+sd}{   (...)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{360}\PYG{l+s+sd}{         Returns predicted values.}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{361}\PYG{l+s+sd}{     \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{362}     \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}decision\PYGZus{}function}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/linear\PYGZus{}model/\PYGZus{}base.py:345,} in \PYG{n+ni}{LinearModel.\PYGZus{}decision\PYGZus{}function}\PYG{n+nt}{(self, X)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{342} \PYG{k}{def} \PYG{n+nf}{\PYGZus{}decision\PYGZus{}function}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{X}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{343}     \PYG{n}{check\PYGZus{}is\PYGZus{}fitted}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{345}     \PYG{n}{X} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}validate\PYGZus{}data}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{accept\PYGZus{}sparse}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{csr}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{csc}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{coo}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{]}\PYG{p}{,} \PYG{n}{reset}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{346}     \PYG{k}{return} \PYG{n}{safe\PYGZus{}sparse\PYGZus{}dot}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{coef\PYGZus{}}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{dense\PYGZus{}output}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)} \PYG{o}{+} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{intercept\PYGZus{}}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/base.py:566,} in \PYG{n+ni}{BaseEstimator.\PYGZus{}validate\PYGZus{}data}\PYG{n+nt}{(self, X, y, reset, validate\PYGZus{}separately, **check\PYGZus{}params)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{564}     \PYG{k}{raise} \PYG{n+ne}{ValueError}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Validation should be done on X, y or both.}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{565} \PYG{k}{elif} \PYG{o+ow}{not} \PYG{n}{no\PYGZus{}val\PYGZus{}X} \PYG{o+ow}{and} \PYG{n}{no\PYGZus{}val\PYGZus{}y}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{566}     \PYG{n}{X} \PYG{o}{=} \PYG{n}{check\PYGZus{}array}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{check\PYGZus{}params}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{567}     \PYG{n}{out} \PYG{o}{=} \PYG{n}{X}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{568} \PYG{k}{elif} \PYG{n}{no\PYGZus{}val\PYGZus{}X} \PYG{o+ow}{and} \PYG{o+ow}{not} \PYG{n}{no\PYGZus{}val\PYGZus{}y}\PYG{p}{:}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/utils/validation.py:617,} in \PYG{n+ni}{check\PYGZus{}array}\PYG{n+nt}{(array, accept\PYGZus{}sparse, accept\PYGZus{}large\PYGZus{}sparse, dtype, order, copy, force\PYGZus{}all\PYGZus{}finite, ensure\PYGZus{}2d, allow\PYGZus{}nd, ensure\PYGZus{}min\PYGZus{}samples, ensure\PYGZus{}min\PYGZus{}features, estimator)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{615} \PYG{n}{dtypes\PYGZus{}orig} \PYG{o}{=} \PYG{k+kc}{None}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{616} \PYG{n}{has\PYGZus{}pd\PYGZus{}integer\PYGZus{}array} \PYG{o}{=} \PYG{k+kc}{False}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{617} \PYG{k}{if} \PYG{n+nb}{hasattr}\PYG{p}{(}\PYG{n}{array}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{dtypes}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)} \PYG{o+ow}{and} \PYG{n+nb}{hasattr}\PYG{p}{(}\PYG{n}{array}\PYG{o}{.}\PYG{n}{dtypes}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZus{}\PYGZus{}array\PYGZus{}\PYGZus{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{618}     \PYG{c+c1}{\PYGZsh{} throw warning if columns are sparse. If all columns are sparse, then}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{619}     \PYG{c+c1}{\PYGZsh{} array.sparse exists and sparsity will be preserved (later).}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{620}     \PYG{k}{with} \PYG{n}{suppress}\PYG{p}{(}\PYG{n+ne}{ImportError}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{621}         \PYG{k+kn}{from} \PYG{n+nn}{pandas}\PYG{n+nn}{.}\PYG{n+nn}{api}\PYG{n+nn}{.}\PYG{n+nn}{types} \PYG{k+kn}{import} \PYG{n}{is\PYGZus{}sparse}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/pandas/core/generic.py:5747,} in \PYG{n+ni}{NDFrame.dtypes}\PYG{n+nt}{(self)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5720} \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5721}\PYG{l+s+sd}{ Return the dtypes in the DataFrame.}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5722}\PYG{l+s+sd}{ }
-\PYG{l+s+sd}{   (...)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5744}\PYG{l+s+sd}{ dtype: object}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5745}\PYG{l+s+sd}{ \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{5746} \PYG{n}{data} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}mgr}\PYG{o}{.}\PYG{n}{get\PYGZus{}dtypes}\PYG{p}{(}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{5747} \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}constructor\PYGZus{}sliced}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}info\PYGZus{}axis}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{object\PYGZus{}}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/pandas/core/series.py:459,} in \PYG{n+ni}{Series.\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, data, index, dtype, name, copy, fastpath)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{456}         \PYG{k}{elif} \PYG{n}{manager} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{array}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{457}             \PYG{n}{data} \PYG{o}{=} \PYG{n}{SingleArrayManager}\PYG{o}{.}\PYG{n}{from\PYGZus{}array}\PYG{p}{(}\PYG{n}{data}\PYG{p}{,} \PYG{n}{index}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{459} \PYG{n}{NDFrame}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{data}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{460} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{name} \PYG{o}{=} \PYG{n}{name}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{461} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}set\PYGZus{}axis}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n}{index}\PYG{p}{,} \PYG{n}{fastpath}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/pandas/core/generic.py:255,} in \PYG{n+ni}{NDFrame.\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, data, copy, attrs)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{253}     \PYG{n}{attrs} \PYG{o}{=} \PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{attrs}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{254} \PYG{n+nb}{object}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}setattr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZus{}attrs}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{attrs}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{255} \PYG{n+nb}{object}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}setattr\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{\PYGZus{}flags}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{Flags}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{allows\PYGZus{}duplicate\PYGZus{}labels}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/pandas/core/flags.py:49,} in \PYG{n+ni}{Flags.\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, obj, allows\PYGZus{}duplicate\PYGZus{}labels)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{47} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{obj}\PYG{p}{,} \PYG{o}{*}\PYG{p}{,} \PYG{n}{allows\PYGZus{}duplicate\PYGZus{}labels}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{48}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}allows\PYGZus{}duplicate\PYGZus{}labels} \PYG{o}{=} \PYG{n}{allows\PYGZus{}duplicate\PYGZus{}labels}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{49}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}obj} \PYG{o}{=} \PYG{n}{weakref}\PYG{o}{.}\PYG{n}{ref}\PYG{p}{(}\PYG{n}{obj}\PYG{p}{)}
-
-\PYG{n+ne}{KeyboardInterrupt}: 
+       Mean ATE  Std Dev  [.025  .975]
+AIPW      0.386    0.017  0.351  0.420
+IPW       0.386    0.016  0.352  0.419
+Naive     0.471    0.015  0.442  0.497
 \end{sphinxVerbatim}
+
+\noindent\sphinxincludegraphics{{DR_Methods_10_1}.png}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
 
@@ -559,9 +513,9 @@ As we can see from the results below, the AIPE method is effectively stable, est
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
        Mean ATE  Std Dev  [.025  .975]
-AIPW      0.385    0.026  0.334  0.435
-IPW       0.567    0.035  0.498  0.638
-Naive     0.473    0.018  0.440  0.507
+AIPW      0.391    0.022  0.354  0.435
+IPW       0.580    0.031  0.523  0.648
+Naive     0.473    0.018  0.443  0.511
 \end{sphinxVerbatim}
 
 \noindent\sphinxincludegraphics{{DR_Methods_14_1}.png}
@@ -571,8 +525,10 @@ Naive     0.473    0.018  0.440  0.507
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-In the third experiment, we now investigate the impact of a bad outcome model. We again sample from a uniform distribution to obtain the incorrect outcome data: \$\(\mu_d(X_i) \sim U(0,1) \)\$
-
+In the third experiment, we now investigate the impact of a bad outcome model. We again sample from a uniform distribution to obtain the incorrect outcome data:
+\begin{equation*}
+\begin{split}\mu_d(X_i) \sim U(0,1) \end{split}
+\end{equation*}
 \sphinxAtStartPar
 Here once again see the AIPW and IPW methods both agree and estimate \textasciitilde{}\(0.39\). AIPW again shows the doubly robust property against the completely random outcome model, while IPW is unimpacted since the exposure model is correct. Both hence perform similarly to the original experiment.
 
@@ -582,9 +538,9 @@ Here once again see the AIPW and IPW methods both agree and estimate \textasciit
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
        Mean ATE  Std Dev  [.025  .975]
-AIPW      0.388    0.016  0.356  0.417
-IPW       0.387    0.015  0.357  0.413
-Naive     0.470    0.017  0.441  0.506
+AIPW      0.385    0.018  0.348  0.417
+IPW       0.386    0.017  0.351  0.414
+Naive     0.472    0.020  0.441  0.509
 \end{sphinxVerbatim}
 
 \noindent\sphinxincludegraphics{{DR_Methods_16_1}.png}
@@ -594,8 +550,10 @@ Naive     0.470    0.017  0.441  0.506
 \end{sphinxuseclass}
 \end{sphinxuseclass}
 \sphinxAtStartPar
-In the final experiment, we show the impact of a bad outcome and exposure model: \$\(\mu_d(X_i) \sim U(0,1),  \hat \pi (X_i) \sim U(0.1,0.9) \)\$
-
+In the final experiment, we show the impact of a bad outcome and exposure model:
+\begin{equation*}
+\begin{split}\mu_d(X_i) \sim U(0,1),  \hat \pi (X_i) \sim U(0.1,0.9) \end{split}
+\end{equation*}
 \sphinxAtStartPar
 In this experiment, we see that AIPW performs very poorly, vastly over\sphinxhyphen{}estimating the ATE. In this instance, either naive or IPW would perform better, although the naive without any consideration for random models does best.
 
@@ -605,9 +563,9 @@ In this experiment, we see that AIPW performs very poorly, vastly over\sphinxhyp
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
        Mean ATE  Std Dev  [.025  .975]
-AIPW      1.054    0.037  0.986  1.132
-IPW       0.575    0.032  0.515  0.630
-Naive     0.475    0.017  0.439  0.508
+AIPW      1.044    0.041  0.958  1.123
+IPW       0.571    0.034  0.510  0.642
+Naive     0.471    0.017  0.441  0.505
 \end{sphinxVerbatim}
 
 \noindent\sphinxincludegraphics{{DR_Methods_18_1}.png}
@@ -644,17 +602,32 @@ The TMLE algorithm begins by first estimating a model by training and predicting
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 Train (5195, 31) (5195,) Test (5196, 31) (5196,)
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
 Meta  (5195, 9) (5195,)
-LinearRegression: RMSE 0.828
-ElasticNet: RMSE 0.990
-SVR: RMSE 0.849
-DecisionTreeRegressor: RMSE 1.023
-KNeighborsRegressor: RMSE 0.887
-AdaBoostRegressor: RMSE 0.827
-BaggingRegressor: RMSE 0.900
-RandomForestRegressor: RMSE 0.898
-ExtraTreesRegressor: RMSE 0.954
-Super Learner: RMSE 0.808
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+LinearRegression: RMSE 0.832
+ElasticNet: RMSE 0.998
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+SVR: RMSE 0.853
+DecisionTreeRegressor: RMSE 1.035
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+KNeighborsRegressor: RMSE 0.890
+AdaBoostRegressor: RMSE 0.831
+BaggingRegressor: RMSE 0.894
+RandomForestRegressor: RMSE 0.892
+ExtraTreesRegressor: RMSE 0.947
+\end{sphinxVerbatim}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+Super Learner: RMSE 0.810
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
@@ -707,7 +680,7 @@ We can take the difference of the last two as an ATE estimate, which is effectiv
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-0.4044480650676532
+0.4192536456208886
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
@@ -769,7 +742,7 @@ We then update out initial estimates with the fluctuation parameter adjustment.
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-TMLE TAE estimate: 0.3864
+TMLE TAE estimate: 0.3807
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
@@ -798,7 +771,7 @@ Using the above method, we see we get a SE very similar to our AIPW empirical me
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-SE calculated from influcence function: 0.0166
+SE calculated from influcence function: 0.0164
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
@@ -837,8 +810,11 @@ Orthogonalization (or equivalently FWL Theorem (\sphinxhref{https://www.jstor.or
 
 \sphinxAtStartPar
 Let us take a multivariate linear regression
-\$\( Y = D_1\beta_1 + X\beta_2 + \epsilon \)\(
-where \)Y\( is \) n \textbackslash{}times 1\( outcome, \)D\( is \)n \textbackslash{}times p\_1\( treatment variables, and \)X\( is \)n \textbackslash{}times p\_2\$ covariates or nuisance parameters.
+\begin{equation*}
+\begin{split} Y = D_1\beta_1 + X\beta_2 + \epsilon \end{split}
+\end{equation*}
+\sphinxAtStartPar
+where \(Y\) is \( n \times 1\) outcome, \(D\) is \(n \times p_1\) treatment variables, and \(X\) is \(n \times p_2\) covariates or nuisance parameters.
 
 \sphinxAtStartPar
 Multiply the equation with residual maker function (\(G\)) of the treatment parameters \(D\). The residual maker is defined by \(Gy = y - D(D'D)^{-1}D'y \equiv y - D\beta \equiv \epsilon_D\)
@@ -1033,8 +1009,9 @@ To be consistent with the \sphinxhref{https://arxiv.org/abs/1608.00060}{Double/D
 
 \sphinxAtStartPar
 Let us take a partial linear regression,
-\$\(Y = D\theta_0 + g_0(X) + U, \quad E[U|X, D] = 0 \)\$
 \begin{equation*}
+\begin{split}Y = D\theta_0 + g_0(X) + U, \quad E[U|X, D] = 0 \end{split}
+\end{equation*}\begin{equation*}
 \begin{split}D = m_0(X) + V, \quad E[V|X] = 0\end{split}
 \end{equation*}
 \sphinxAtStartPar
@@ -1121,19 +1098,19 @@ In this example, we will use the data on 401(k) eligibility (treatment variable)
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-         nifa  net\PYGZus{}tfa        tw  age      inc  fsize  educ  db  marr  \PYGZbs{}
-7831  15750.0  38650.0   78650.0   32  47628.0      2    12   1     1   
-9229  82202.0  63176.0  114176.0   37  69264.0      4    16   0     1   
-3051    550.0 \PYGZhy{}17550.0   \PYGZhy{}9550.0   45  48000.0      4    14   0     1   
-8457   2050.0  11750.0  111750.0   39  71829.0      4    12   0     1   
-7057    480.0 \PYGZhy{}21130.0  \PYGZhy{}19538.0   33  45300.0      3    12   1     1   
+         nifa  net\PYGZus{}tfa       tw  age      inc  fsize  educ  db  marr  twoearn  \PYGZbs{}
+3322  13198.0  20418.0  50418.0   51  17616.0      3    12   1     1        0   
+1526      0.0      0.0      0.0   43  17844.0      3     8   1     0        0   
+5507      0.0      0.0   1500.0   43  19074.0      1    14   0     0        0   
+15        0.0  \PYGZhy{}1000.0   \PYGZhy{}325.0   29  14580.0      3    12   0     0        0   
+3687   6000.0  12800.0  12800.0   31  50529.0      2    16   0     1        1   
 
-      twoearn  e401  p401  pira  hown  
-7831        1     1     1     0     0  
-9229        0     1     1     0     1  
-3051        1     0     0     0     0  
-8457        0     1     1     0     1  
-7057        1     1     0     0     0  
+      e401  p401  pira  hown  
+3322     0     0     1     1  
+1526     0     0     0     0  
+5507     0     0     0     0  
+15       0     0     0     0  
+3687     0     0     1     1  
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}
@@ -1407,256 +1384,11 @@ In the following section, Random Forest, Xtreme Gradient Boosting (XGBoost), and
 
 \begin{sphinxuseclass}{cell_output}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{g+gt}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZhy{}}
-\PYG{n+ne}{KeyboardInterrupt}\PYG{g+gWhitespace}{                         }Traceback (most recent call last)
-\PYG{n+nn}{Input In [22],} in \PYG{n+ni}{\PYGZlt{}cell line: 13\PYGZgt{}}\PYG{n+nt}{()}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{7} \PYG{n}{np}\PYG{o}{.}\PYG{n}{random}\PYG{o}{.}\PYG{n}{seed}\PYG{p}{(}\PYG{l+m+mi}{123}\PYG{p}{)}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{8} \PYG{n}{dml\PYGZus{}plr\PYGZus{}forest} \PYG{o}{=} \PYG{n}{dml}\PYG{o}{.}\PYG{n}{DoubleMLPLR}\PYG{p}{(}\PYG{n}{data\PYGZus{}dml\PYGZus{}base}\PYG{p}{,}
-\PYG{g+gWhitespace}{      }\PYG{l+m+mi}{9}                                  \PYG{n}{ml\PYGZus{}g} \PYG{o}{=} \PYG{n}{randomForest}\PYG{p}{,}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{10}                                  \PYG{n}{ml\PYGZus{}m} \PYG{o}{=} \PYG{n}{randomForest\PYGZus{}class}\PYG{p}{,}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{11}                                  \PYG{n}{n\PYGZus{}folds} \PYG{o}{=} \PYG{l+m+mi}{3}\PYG{p}{,} 
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{12}                                 \PYG{n}{n\PYGZus{}rep}\PYG{o}{=}\PYG{l+m+mi}{10}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{13} \PYG{n}{dml\PYGZus{}plr\PYGZus{}forest}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{store\PYGZus{}predictions}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{14} \PYG{n}{forest\PYGZus{}summary3} \PYG{o}{=} \PYG{n}{dml\PYGZus{}plr\PYGZus{}forest}\PYG{o}{.}\PYG{n}{summary}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{16} \PYG{n}{forest\PYGZus{}summary3}
+             coef      std err         t         P\PYGZgt{}|t|       2.5 \PYGZpc{}  \PYGZbs{}
+e401  9018.368261  1315.291812  6.856553  7.054183e\PYGZhy{}12  6440.44368   
 
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/doubleml/double\PYGZus{}ml.py:477,} in \PYG{n+ni}{DoubleML.fit}\PYG{n+nt}{(self, n\PYGZus{}jobs\PYGZus{}cv, keep\PYGZus{}scores, store\PYGZus{}predictions)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{473}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}dml\PYGZus{}data}\PYG{o}{.}\PYG{n}{set\PYGZus{}x\PYGZus{}d}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}dml\PYGZus{}data}\PYG{o}{.}\PYG{n}{d\PYGZus{}cols}\PYG{p}{[}\PYG{n}{i\PYGZus{}d}\PYG{p}{]}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{475} \PYG{c+c1}{\PYGZsh{} ml estimation of nuisance models and computation of score elements}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{476} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}psi\PYGZus{}a}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}i\PYGZus{}rep}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}i\PYGZus{}treat}\PYG{p}{]}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}psi\PYGZus{}b}\PYG{p}{[}\PYG{p}{:}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}i\PYGZus{}rep}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}i\PYGZus{}treat}\PYG{p}{]}\PYG{p}{,} \PYG{n}{preds} \PYG{o}{=}\PYGZbs{}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{477}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}nuisance\PYGZus{}est}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}\PYGZus{}smpls}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs\PYGZus{}cv}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{479} \PYG{k}{if} \PYG{n}{store\PYGZus{}predictions}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{480}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}store\PYGZus{}predictions}\PYG{p}{(}\PYG{n}{preds}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/doubleml/double\PYGZus{}ml\PYGZus{}plr.py:148,} in \PYG{n+ni}{DoubleMLPLR.\PYGZus{}nuisance\PYGZus{}est}\PYG{n+nt}{(self, smpls, n\PYGZus{}jobs\PYGZus{}cv)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{144} \PYG{n}{x}\PYG{p}{,} \PYG{n}{d} \PYG{o}{=} \PYG{n}{check\PYGZus{}X\PYGZus{}y}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}dml\PYGZus{}data}\PYG{o}{.}\PYG{n}{d}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{145}                  \PYG{n}{force\PYGZus{}all\PYGZus{}finite}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{147} \PYG{c+c1}{\PYGZsh{} nuisance g}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{148} \PYG{n}{g\PYGZus{}hat} \PYG{o}{=} \PYG{n}{\PYGZus{}dml\PYGZus{}cv\PYGZus{}predict}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}learner}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ml\PYGZus{}g}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{smpls}\PYG{o}{=}\PYG{n}{smpls}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n}{n\PYGZus{}jobs\PYGZus{}cv}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{149}                         \PYG{n}{est\PYGZus{}params}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}get\PYGZus{}params}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ml\PYGZus{}g}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}\PYG{p}{,} \PYG{n}{method}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}predict\PYGZus{}method}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ml\PYGZus{}g}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{150} \PYG{n}{\PYGZus{}check\PYGZus{}finite\PYGZus{}predictions}\PYG{p}{(}\PYG{n}{g\PYGZus{}hat}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}learner}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ml\PYGZus{}g}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ml\PYGZus{}g}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{smpls}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{152} \PYG{c+c1}{\PYGZsh{} nuisance m}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/doubleml/\PYGZus{}utils.py:100,} in \PYG{n+ni}{\PYGZus{}dml\PYGZus{}cv\PYGZus{}predict}\PYG{n+nt}{(estimator, x, y, smpls, n\PYGZus{}jobs, est\PYGZus{}params, method, return\PYGZus{}train\PYGZus{}preds)}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{97} \PYG{k}{if} \PYG{o+ow}{not} \PYG{n}{manual\PYGZus{}cv\PYGZus{}predict}\PYG{p}{:}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{98}     \PYG{k}{if} \PYG{n}{est\PYGZus{}params} \PYG{o+ow}{is} \PYG{k+kc}{None}\PYG{p}{:}
-\PYG{g+gWhitespace}{     }\PYG{l+m+mi}{99}         \PYG{c+c1}{\PYGZsh{} if there are no parameters set we redirect to the standard method}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{100}         \PYG{n}{preds} \PYG{o}{=} \PYG{n}{cross\PYGZus{}val\PYGZus{}predict}\PYG{p}{(}\PYG{n}{clone}\PYG{p}{(}\PYG{n}{estimator}\PYG{p}{)}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{n}{smpls}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n}{n\PYGZus{}jobs}\PYG{p}{,} \PYG{n}{method}\PYG{o}{=}\PYG{n}{method}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{101}     \PYG{k}{else}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{102}         \PYG{k}{assert} \PYG{n+nb}{isinstance}\PYG{p}{(}\PYG{n}{est\PYGZus{}params}\PYG{p}{,} \PYG{n+nb}{dict}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/model\PYGZus{}selection/\PYGZus{}validation.py:962,} in \PYG{n+ni}{cross\PYGZus{}val\PYGZus{}predict}\PYG{n+nt}{(estimator, X, y, groups, cv, n\PYGZus{}jobs, verbose, fit\PYGZus{}params, pre\PYGZus{}dispatch, method)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{959} \PYG{c+c1}{\PYGZsh{} We clone the estimator to make sure that all the folds are}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{960} \PYG{c+c1}{\PYGZsh{} independent, and that it is pickle\PYGZhy{}able.}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{961} \PYG{n}{parallel} \PYG{o}{=} \PYG{n}{Parallel}\PYG{p}{(}\PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n}{n\PYGZus{}jobs}\PYG{p}{,} \PYG{n}{verbose}\PYG{o}{=}\PYG{n}{verbose}\PYG{p}{,} \PYG{n}{pre\PYGZus{}dispatch}\PYG{o}{=}\PYG{n}{pre\PYGZus{}dispatch}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{962} \PYG{n}{predictions} \PYG{o}{=} \PYG{n}{parallel}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{963}     \PYG{n}{delayed}\PYG{p}{(}\PYG{n}{\PYGZus{}fit\PYGZus{}and\PYGZus{}predict}\PYG{p}{)}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{964}         \PYG{n}{clone}\PYG{p}{(}\PYG{n}{estimator}\PYG{p}{)}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{train}\PYG{p}{,} \PYG{n}{test}\PYG{p}{,} \PYG{n}{verbose}\PYG{p}{,} \PYG{n}{fit\PYGZus{}params}\PYG{p}{,} \PYG{n}{method}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{965}     \PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{966}     \PYG{k}{for} \PYG{n}{train}\PYG{p}{,} \PYG{n}{test} \PYG{o+ow}{in} \PYG{n}{splits}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{967} \PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{969} \PYG{n}{inv\PYGZus{}test\PYGZus{}indices} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{empty}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{test\PYGZus{}indices}\PYG{p}{)}\PYG{p}{,} \PYG{n}{dtype}\PYG{o}{=}\PYG{n+nb}{int}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{970} \PYG{n}{inv\PYGZus{}test\PYGZus{}indices}\PYG{p}{[}\PYG{n}{test\PYGZus{}indices}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{test\PYGZus{}indices}\PYG{p}{)}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:1046,} in \PYG{n+ni}{Parallel.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, iterable)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1043} \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dispatch\PYGZus{}one\PYGZus{}batch}\PYG{p}{(}\PYG{n}{iterator}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1044}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}iterating} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}original\PYGZus{}iterator} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}
-\PYG{n+ne}{\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1046} \PYG{k}{while} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dispatch\PYGZus{}one\PYGZus{}batch}\PYG{p}{(}\PYG{n}{iterator}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1047}     \PYG{k}{pass}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1049} \PYG{k}{if} \PYG{n}{pre\PYGZus{}dispatch} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{all}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o+ow}{or} \PYG{n}{n\PYGZus{}jobs} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1050}     \PYG{c+c1}{\PYGZsh{} The iterable was consumed all at once by the above for loop.}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1051}     \PYG{c+c1}{\PYGZsh{} No need to wait for async callbacks to trigger to}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1052}     \PYG{c+c1}{\PYGZsh{} consumption.}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:861,} in \PYG{n+ni}{Parallel.dispatch\PYGZus{}one\PYGZus{}batch}\PYG{n+nt}{(self, iterator)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{859}     \PYG{k}{return} \PYG{k+kc}{False}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{860} \PYG{k}{else}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{861}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}dispatch}\PYG{p}{(}\PYG{n}{tasks}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{862}     \PYG{k}{return} \PYG{k+kc}{True}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:779,} in \PYG{n+ni}{Parallel.\PYGZus{}dispatch}\PYG{n+nt}{(self, batch)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{777} \PYG{k}{with} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}lock}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{778}     \PYG{n}{job\PYGZus{}idx} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}jobs}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{779}     \PYG{n}{job} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{o}{.}\PYG{n}{apply\PYGZus{}async}\PYG{p}{(}\PYG{n}{batch}\PYG{p}{,} \PYG{n}{callback}\PYG{o}{=}\PYG{n}{cb}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{780}     \PYG{c+c1}{\PYGZsh{} A job can complete so quickly than its callback is}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{781}     \PYG{c+c1}{\PYGZsh{} called before we get here, causing self.\PYGZus{}jobs to}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{782}     \PYG{c+c1}{\PYGZsh{} grow. To ensure correct results ordering, .insert is}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{783}     \PYG{c+c1}{\PYGZsh{} used (rather than .append) in the following line}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{784}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}jobs}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{job\PYGZus{}idx}\PYG{p}{,} \PYG{n}{job}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/\PYGZus{}parallel\PYGZus{}backends.py:208,} in \PYG{n+ni}{SequentialBackend.apply\PYGZus{}async}\PYG{n+nt}{(self, func, callback)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{206} \PYG{k}{def} \PYG{n+nf}{apply\PYGZus{}async}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{func}\PYG{p}{,} \PYG{n}{callback}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{207}     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Schedule a func to be run\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{208}     \PYG{n}{result} \PYG{o}{=} \PYG{n}{ImmediateResult}\PYG{p}{(}\PYG{n}{func}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{209}     \PYG{k}{if} \PYG{n}{callback}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{210}         \PYG{n}{callback}\PYG{p}{(}\PYG{n}{result}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/\PYGZus{}parallel\PYGZus{}backends.py:572,} in \PYG{n+ni}{ImmediateResult.\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, batch)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{569} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{batch}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{570}     \PYG{c+c1}{\PYGZsh{} Don\PYGZsq{}t delay the application, to avoid keeping the input}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{571}     \PYG{c+c1}{\PYGZsh{} arguments in memory}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{572}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{results} \PYG{o}{=} \PYG{n}{batch}\PYG{p}{(}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:262,} in \PYG{n+ni}{BatchedCalls.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{258} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{259}     \PYG{c+c1}{\PYGZsh{} Set the default nested backend to self.\PYGZus{}backend but do not set the}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{260}     \PYG{c+c1}{\PYGZsh{} change the default number of processes to \PYGZhy{}1}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{261}     \PYG{k}{with} \PYG{n}{parallel\PYGZus{}backend}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}n\PYGZus{}jobs}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{262}         \PYG{k}{return} \PYG{p}{[}\PYG{n}{func}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{263}                 \PYG{k}{for} \PYG{n}{func}\PYG{p}{,} \PYG{n}{args}\PYG{p}{,} \PYG{n}{kwargs} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{items}\PYG{p}{]}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:262,} in \PYG{n+ni}{\PYGZlt{}listcomp\PYGZgt{}}\PYG{n+nt}{(.0)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{258} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{259}     \PYG{c+c1}{\PYGZsh{} Set the default nested backend to self.\PYGZus{}backend but do not set the}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{260}     \PYG{c+c1}{\PYGZsh{} change the default number of processes to \PYGZhy{}1}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{261}     \PYG{k}{with} \PYG{n}{parallel\PYGZus{}backend}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}n\PYGZus{}jobs}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{262}         \PYG{k}{return} \PYG{p}{[}\PYG{n}{func}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{263}                 \PYG{k}{for} \PYG{n}{func}\PYG{p}{,} \PYG{n}{args}\PYG{p}{,} \PYG{n}{kwargs} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{items}\PYG{p}{]}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/utils/fixes.py:216,} in \PYG{n+ni}{\PYGZus{}FuncWrapper.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, *args, **kwargs)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{214} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{215}     \PYG{k}{with} \PYG{n}{config\PYGZus{}context}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{config}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{216}         \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{function}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/model\PYGZus{}selection/\PYGZus{}validation.py:1044,} in \PYG{n+ni}{\PYGZus{}fit\PYGZus{}and\PYGZus{}predict}\PYG{n+nt}{(estimator, X, y, train, test, verbose, fit\PYGZus{}params, method)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1042}     \PYG{n}{estimator}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{fit\PYGZus{}params}\PYG{p}{)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1043} \PYG{k}{else}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1044}     \PYG{n}{estimator}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X\PYGZus{}train}\PYG{p}{,} \PYG{n}{y\PYGZus{}train}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{fit\PYGZus{}params}\PYG{p}{)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1045} \PYG{n}{func} \PYG{o}{=} \PYG{n+nb}{getattr}\PYG{p}{(}\PYG{n}{estimator}\PYG{p}{,} \PYG{n}{method}\PYG{p}{)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1046} \PYG{n}{predictions} \PYG{o}{=} \PYG{n}{func}\PYG{p}{(}\PYG{n}{X\PYGZus{}test}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/ensemble/\PYGZus{}forest.py:450,} in \PYG{n+ni}{BaseForest.fit}\PYG{n+nt}{(self, X, y, sample\PYGZus{}weight)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{439} \PYG{n}{trees} \PYG{o}{=} \PYG{p}{[}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{440}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}make\PYGZus{}estimator}\PYG{p}{(}\PYG{n}{append}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{n}{random\PYGZus{}state}\PYG{p}{)}
-\PYG{n+nn}{    441     for i} in \PYG{n+ni}{range}\PYG{n+nt}{(n\PYGZus{}more\PYGZus{}estimators)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{442} \PYG{p}{]}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{444} \PYG{c+c1}{\PYGZsh{} Parallel loop: we prefer the threading backend as the Cython code}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{445} \PYG{c+c1}{\PYGZsh{} for fitting the trees is internally releasing the Python GIL}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{446} \PYG{c+c1}{\PYGZsh{} making threading more efficient than multiprocessing in}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{447} \PYG{c+c1}{\PYGZsh{} that case. However, for joblib 0.12+ we respect any}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{448} \PYG{c+c1}{\PYGZsh{} parallel\PYGZus{}backend contexts set at a higher level,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{449} \PYG{c+c1}{\PYGZsh{} since correctness does not rely on using threads.}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{450} \PYG{n}{trees} \PYG{o}{=} \PYG{n}{Parallel}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{451}     \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{n\PYGZus{}jobs}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{452}     \PYG{n}{verbose}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{verbose}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{453}     \PYG{o}{*}\PYG{o}{*}\PYG{n}{\PYGZus{}joblib\PYGZus{}parallel\PYGZus{}args}\PYG{p}{(}\PYG{n}{prefer}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{threads}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{454} \PYG{p}{)}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{455}     \PYG{n}{delayed}\PYG{p}{(}\PYG{n}{\PYGZus{}parallel\PYGZus{}build\PYGZus{}trees}\PYG{p}{)}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{456}         \PYG{n}{t}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{457}         \PYG{n+nb+bp}{self}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{458}         \PYG{n}{X}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{459}         \PYG{n}{y}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{460}         \PYG{n}{sample\PYGZus{}weight}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{461}         \PYG{n}{i}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{462}         \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{trees}\PYG{p}{)}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{463}         \PYG{n}{verbose}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{verbose}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{464}         \PYG{n}{class\PYGZus{}weight}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{class\PYGZus{}weight}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{465}         \PYG{n}{n\PYGZus{}samples\PYGZus{}bootstrap}\PYG{o}{=}\PYG{n}{n\PYGZus{}samples\PYGZus{}bootstrap}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{466}     \PYG{p}{)}
-\PYG{n+nn}{    467     for i, t} in \PYG{n+ni}{enumerate}\PYG{n+nt}{(trees)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{468} \PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{470} \PYG{c+c1}{\PYGZsh{} Collect newly grown trees}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{471} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{estimators\PYGZus{}}\PYG{o}{.}\PYG{n}{extend}\PYG{p}{(}\PYG{n}{trees}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:1046,} in \PYG{n+ni}{Parallel.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, iterable)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1043} \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dispatch\PYGZus{}one\PYGZus{}batch}\PYG{p}{(}\PYG{n}{iterator}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1044}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}iterating} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}original\PYGZus{}iterator} \PYG{o+ow}{is} \PYG{o+ow}{not} \PYG{k+kc}{None}
-\PYG{n+ne}{\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1046} \PYG{k}{while} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{dispatch\PYGZus{}one\PYGZus{}batch}\PYG{p}{(}\PYG{n}{iterator}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1047}     \PYG{k}{pass}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1049} \PYG{k}{if} \PYG{n}{pre\PYGZus{}dispatch} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{all}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o+ow}{or} \PYG{n}{n\PYGZus{}jobs} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1050}     \PYG{c+c1}{\PYGZsh{} The iterable was consumed all at once by the above for loop.}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1051}     \PYG{c+c1}{\PYGZsh{} No need to wait for async callbacks to trigger to}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1052}     \PYG{c+c1}{\PYGZsh{} consumption.}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:861,} in \PYG{n+ni}{Parallel.dispatch\PYGZus{}one\PYGZus{}batch}\PYG{n+nt}{(self, iterator)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{859}     \PYG{k}{return} \PYG{k+kc}{False}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{860} \PYG{k}{else}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{861}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}dispatch}\PYG{p}{(}\PYG{n}{tasks}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{862}     \PYG{k}{return} \PYG{k+kc}{True}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:779,} in \PYG{n+ni}{Parallel.\PYGZus{}dispatch}\PYG{n+nt}{(self, batch)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{777} \PYG{k}{with} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}lock}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{778}     \PYG{n}{job\PYGZus{}idx} \PYG{o}{=} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}jobs}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{779}     \PYG{n}{job} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{o}{.}\PYG{n}{apply\PYGZus{}async}\PYG{p}{(}\PYG{n}{batch}\PYG{p}{,} \PYG{n}{callback}\PYG{o}{=}\PYG{n}{cb}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{780}     \PYG{c+c1}{\PYGZsh{} A job can complete so quickly than its callback is}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{781}     \PYG{c+c1}{\PYGZsh{} called before we get here, causing self.\PYGZus{}jobs to}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{782}     \PYG{c+c1}{\PYGZsh{} grow. To ensure correct results ordering, .insert is}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{783}     \PYG{c+c1}{\PYGZsh{} used (rather than .append) in the following line}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{784}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}jobs}\PYG{o}{.}\PYG{n}{insert}\PYG{p}{(}\PYG{n}{job\PYGZus{}idx}\PYG{p}{,} \PYG{n}{job}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/\PYGZus{}parallel\PYGZus{}backends.py:208,} in \PYG{n+ni}{SequentialBackend.apply\PYGZus{}async}\PYG{n+nt}{(self, func, callback)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{206} \PYG{k}{def} \PYG{n+nf}{apply\PYGZus{}async}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{func}\PYG{p}{,} \PYG{n}{callback}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{207}     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Schedule a func to be run\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{208}     \PYG{n}{result} \PYG{o}{=} \PYG{n}{ImmediateResult}\PYG{p}{(}\PYG{n}{func}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{209}     \PYG{k}{if} \PYG{n}{callback}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{210}         \PYG{n}{callback}\PYG{p}{(}\PYG{n}{result}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/\PYGZus{}parallel\PYGZus{}backends.py:572,} in \PYG{n+ni}{ImmediateResult.\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, batch)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{569} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{batch}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{570}     \PYG{c+c1}{\PYGZsh{} Don\PYGZsq{}t delay the application, to avoid keeping the input}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{571}     \PYG{c+c1}{\PYGZsh{} arguments in memory}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{572}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{results} \PYG{o}{=} \PYG{n}{batch}\PYG{p}{(}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:262,} in \PYG{n+ni}{BatchedCalls.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{258} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{259}     \PYG{c+c1}{\PYGZsh{} Set the default nested backend to self.\PYGZus{}backend but do not set the}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{260}     \PYG{c+c1}{\PYGZsh{} change the default number of processes to \PYGZhy{}1}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{261}     \PYG{k}{with} \PYG{n}{parallel\PYGZus{}backend}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}n\PYGZus{}jobs}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{262}         \PYG{k}{return} \PYG{p}{[}\PYG{n}{func}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{263}                 \PYG{k}{for} \PYG{n}{func}\PYG{p}{,} \PYG{n}{args}\PYG{p}{,} \PYG{n}{kwargs} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{items}\PYG{p}{]}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/joblib/parallel.py:262,} in \PYG{n+ni}{\PYGZlt{}listcomp\PYGZgt{}}\PYG{n+nt}{(.0)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{258} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{259}     \PYG{c+c1}{\PYGZsh{} Set the default nested backend to self.\PYGZus{}backend but do not set the}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{260}     \PYG{c+c1}{\PYGZsh{} change the default number of processes to \PYGZhy{}1}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{261}     \PYG{k}{with} \PYG{n}{parallel\PYGZus{}backend}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}backend}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{\PYGZus{}n\PYGZus{}jobs}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{262}         \PYG{k}{return} \PYG{p}{[}\PYG{n}{func}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{263}                 \PYG{k}{for} \PYG{n}{func}\PYG{p}{,} \PYG{n}{args}\PYG{p}{,} \PYG{n}{kwargs} \PYG{o+ow}{in} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{items}\PYG{p}{]}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/utils/fixes.py:216,} in \PYG{n+ni}{\PYGZus{}FuncWrapper.\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{n+nt}{(self, *args, **kwargs)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{214} \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}call\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{215}     \PYG{k}{with} \PYG{n}{config\PYGZus{}context}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{config}\PYG{p}{)}\PYG{p}{:}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{216}         \PYG{k}{return} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{function}\PYG{p}{(}\PYG{o}{*}\PYG{n}{args}\PYG{p}{,} \PYG{o}{*}\PYG{o}{*}\PYG{n}{kwargs}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/ensemble/\PYGZus{}forest.py:185,} in \PYG{n+ni}{\PYGZus{}parallel\PYGZus{}build\PYGZus{}trees}\PYG{n+nt}{(tree, forest, X, y, sample\PYGZus{}weight, tree\PYGZus{}idx, n\PYGZus{}trees, verbose, class\PYGZus{}weight, n\PYGZus{}samples\PYGZus{}bootstrap)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{182}     \PYG{k}{elif} \PYG{n}{class\PYGZus{}weight} \PYG{o}{==} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{balanced\PYGZus{}subsample}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{183}         \PYG{n}{curr\PYGZus{}sample\PYGZus{}weight} \PYG{o}{*}\PYG{o}{=} \PYG{n}{compute\PYGZus{}sample\PYGZus{}weight}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{balanced}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{indices}\PYG{o}{=}\PYG{n}{indices}\PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{185}     \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{sample\PYGZus{}weight}\PYG{o}{=}\PYG{n}{curr\PYGZus{}sample\PYGZus{}weight}\PYG{p}{,} \PYG{n}{check\PYGZus{}input}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{186} \PYG{k}{else}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{187}     \PYG{n}{tree}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{sample\PYGZus{}weight}\PYG{o}{=}\PYG{n}{sample\PYGZus{}weight}\PYG{p}{,} \PYG{n}{check\PYGZus{}input}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/tree/\PYGZus{}classes.py:1315,} in \PYG{n+ni}{DecisionTreeRegressor.fit}\PYG{n+nt}{(self, X, y, sample\PYGZus{}weight, check\PYGZus{}input, X\PYGZus{}idx\PYGZus{}sorted)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1278} \PYG{k}{def} \PYG{n+nf}{fit}\PYG{p}{(}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1279}     \PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{sample\PYGZus{}weight}\PYG{o}{=}\PYG{k+kc}{None}\PYG{p}{,} \PYG{n}{check\PYGZus{}input}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{,} \PYG{n}{X\PYGZus{}idx\PYGZus{}sorted}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{deprecated}\PYG{l+s+s2}{\PYGZdq{}}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1280} \PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1281}     \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Build a decision tree regressor from the training set (X, y).}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1282}\PYG{l+s+sd}{ }
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1283}\PYG{l+s+sd}{     Parameters}
-\PYG{l+s+sd}{   (...)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1312}\PYG{l+s+sd}{         Fitted estimator.}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1313}\PYG{l+s+sd}{     \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n+ne}{\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{1315}     \PYG{n+nb}{super}\PYG{p}{(}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1316}         \PYG{n}{X}\PYG{p}{,}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1317}         \PYG{n}{y}\PYG{p}{,}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1318}         \PYG{n}{sample\PYGZus{}weight}\PYG{o}{=}\PYG{n}{sample\PYGZus{}weight}\PYG{p}{,}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1319}         \PYG{n}{check\PYGZus{}input}\PYG{o}{=}\PYG{n}{check\PYGZus{}input}\PYG{p}{,}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1320}         \PYG{n}{X\PYGZus{}idx\PYGZus{}sorted}\PYG{o}{=}\PYG{n}{X\PYGZus{}idx\PYGZus{}sorted}\PYG{p}{,}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1321}     \PYG{p}{)}
-\PYG{g+gWhitespace}{   }\PYG{l+m+mi}{1322}     \PYG{k}{return} \PYG{n+nb+bp}{self}
-
-\PYG{n+nn}{File \PYGZti{}/miniconda3/envs/stats256/lib/python3.10/site\PYGZhy{}packages/sklearn/tree/\PYGZus{}classes.py:420,} in \PYG{n+ni}{BaseDecisionTree.fit}\PYG{n+nt}{(self, X, y, sample\PYGZus{}weight, check\PYGZus{}input, X\PYGZus{}idx\PYGZus{}sorted)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{409} \PYG{k}{else}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{410}     \PYG{n}{builder} \PYG{o}{=} \PYG{n}{BestFirstTreeBuilder}\PYG{p}{(}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{411}         \PYG{n}{splitter}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{412}         \PYG{n}{min\PYGZus{}samples\PYGZus{}split}\PYG{p}{,}
-   \PYG{p}{(}\PYG{o}{.}\PYG{o}{.}\PYG{o}{.}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{417}         \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{min\PYGZus{}impurity\PYGZus{}decrease}\PYG{p}{,}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{418}     \PYG{p}{)}
-\PYG{n+ne}{\PYGZhy{}\PYGZhy{}\PYGZgt{} }\PYG{l+m+mi}{420} \PYG{n}{builder}\PYG{o}{.}\PYG{n}{build}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{tree\PYGZus{}}\PYG{p}{,} \PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{sample\PYGZus{}weight}\PYG{p}{)}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{422} \PYG{k}{if} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{n\PYGZus{}outputs\PYGZus{}} \PYG{o}{==} \PYG{l+m+mi}{1} \PYG{o+ow}{and} \PYG{n}{is\PYGZus{}classifier}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{p}{:}
-\PYG{g+gWhitespace}{    }\PYG{l+m+mi}{423}     \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{n\PYGZus{}classes\PYGZus{}} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{n\PYGZus{}classes\PYGZus{}}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
-
-\PYG{n+ne}{KeyboardInterrupt}: 
+            97.5 \PYGZpc{}  
+e401  11596.292842  
 \end{sphinxVerbatim}
 
 \end{sphinxuseclass}\end{sphinxVerbatimOutput}

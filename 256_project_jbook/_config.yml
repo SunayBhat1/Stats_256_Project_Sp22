@@ -1,6 +1,9 @@
 # In _config.yml
 title: Advanced Adjustment - An Introduction to Doubly Robust Methods
-author: UCLA Stats 256 Spring 2022
+author: S. Bhat, A. Chatterjee, L. Dahal, N. Hoffmann, A. Nanda
 logo: logo.png
 execute:
+  timeout: -1
   execute_notebooks: force
+  allow_errors: true
+    

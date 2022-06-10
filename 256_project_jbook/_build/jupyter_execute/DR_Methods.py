@@ -79,7 +79,7 @@ plt.legend(['Untreated', 'Treated']);
 # 
 # The following code block implements the naive ATE, the standard IPW, and finally the AIPW methods as python functions. Note that propensity score, or the exposure model, is constructed as a *Logistic Regression problem*, and the outcome model is generated as a *Linear Regression problem*.
 # 
-# We do this to allow us to readily run many iterations of each method. We will use a bootstrap subsample method, where we will sample 1% of the original data (~100 data points), 100 times. This will allow us to generate a distribution of ATEs with an empirical standard deviation. Thus we can report our results comparing each of the three methods using various exposure and outcome models with 95% confidence intervals as well.
+# We do this to allow us to readily run many iterations of each method. We will use a bootstrap subsample method, where we will sample the full dataset with replacement 100 times. This will allow us to generate a distribution of ATEs with an empirical standard deviation. Thus we can report our results comparing each of the three methods using various exposure and outcome models with 95% confidence intervals as well.
 
 # In[5]:
 
@@ -113,7 +113,7 @@ def IPW(df, X, T, Y,true_ps = True):
 ### AIPW
 def AIPW(df, X, T, Y,true_ps = True,true_mus = True):
     if true_ps:
-        p_scores = LogisticRegression(C=1e6,max_iter=500).fit(df[X], df[T]).predict_proba(df[X])[:, 1]
+        p_scores = LogisticRegression(C=1e6,max_iter=1000).fit(df[X], df[T]).predict_proba(df[X])[:, 1]
     else:
         p_scores = np.random.uniform(0.1, 0.9, df.shape[0])
 
@@ -132,21 +132,20 @@ def AIPW(df, X, T, Y,true_ps = True,true_mus = True):
 
 # #### Experiments and Results
 # 
-# The following  block shows our bootstrap sampling method results displayed (100 iterations for ~100 samples of 1% of dataset). In this initial experiment, we correctly specify both the exposure and outcome models. The results are displayed in the plot and table below.
+# The following  block shows our bootstrap sampling method results displayed (100 iterations for the full dataset). In this initial experiment, we correctly specify both the exposure and outcome models. The results are displayed in the plot and table below.
 
 # In[6]:
 
 
-# Hide cell
 bootstrap_sample = 100
 AIPW_ates = []
 IPW_ates = []
 naives_ates = []
 for iSample in range(bootstrap_sample):
-    df_bootstrap = df_categ.sample(frac=1)
+    df_bootstrap = df_categ.sample(frac=1,replace=True)
     ate, ps, mu0, mu1 = AIPW(df_bootstrap, X, T, Y)
     AIPW_ates.append(ate)
-    ate, ps,_ = IPW(df_bootstrap, X, T, Y,true_ps=False)
+    ate, ps,_ = IPW(df_bootstrap, X, T, Y)
     IPW_ates.append(ate)
     naives_ates.append(naive_ATE(df_bootstrap, T, Y))
 
@@ -222,7 +221,9 @@ df_results = pd.DataFrame(Results)
 df_results.T
 
 
-# In the third experiment, we now investigate the impact of a bad outcome model. We again sample from a uniform distribution to obtain the incorrect outcome data: $$\mu_d(X_i) \sim U(0,1) $$
+# In the third experiment, we now investigate the impact of a bad outcome model. We again sample from a uniform distribution to obtain the incorrect outcome data: 
+# 
+# $$\mu_d(X_i) \sim U(0,1) $$
 #  
 # Here once again see the AIPW and IPW methods both agree and estimate ~$0.39$. AIPW again shows the doubly robust property against the completely random outcome model, while IPW is unimpacted since the exposure model is correct. Both hence perform similarly to the original experiment.
 
@@ -259,7 +260,9 @@ df_results = pd.DataFrame(Results)
 df_results.T
 
 
-# In the final experiment, we show the impact of a bad outcome and exposure model: $$\mu_d(X_i) \sim U(0,1),  \hat \pi (X_i) \sim U(0.1,0.9) $$
+# In the final experiment, we show the impact of a bad outcome and exposure model: 
+# 
+# $$\mu_d(X_i) \sim U(0,1),  \hat \pi (X_i) \sim U(0.1,0.9) $$
 #  
 # In this experiment, we see that AIPW performs very poorly, vastly over-estimating the ATE. In this instance, either naive or IPW would perform better, although the naive without any consideration for random models does best. 
 

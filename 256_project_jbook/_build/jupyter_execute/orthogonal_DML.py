@@ -15,7 +15,9 @@
 # Orthogonalization (or equivalently FWL Theorem ([Frisch and Waugh, 1933](https://www.jstor.org/stable/pdf/1907330.pdf); [Lovell, 1963](https://www.tandfonline.com/doi/abs/10.3200/jece.39.1.88-91)) is the backbone of DML. Its principled approach guarantees an unbiased estimate. Since it is a key to understanding why DML works, we will first prove the FWL Theorem and implement it in an example to demonstrate how it debiases the data before moving on to the details of DML.  
 # 
 # Let us take a multivariate linear regression
+# 
 # $$ Y = D_1\beta_1 + X\beta_2 + \epsilon $$
+# 
 # where $Y$ is $ n \times 1$ outcome, $D$ is $n \times p_1$ treatment variables, and $X$ is $n \times p_2$ covariates or nuisance parameters. 
 # 
 # Multiply the equation with residual maker function ($G$) of the treatment parameters $D$. The residual maker is defined by $Gy = y - D(D'D)^{-1}D'y \equiv y - D\beta \equiv \epsilon_D$
@@ -178,8 +180,8 @@ plt.show()
 # 
 
 # Let us take a partial linear regression, 
-# $$Y = D\theta_0 + g_0(X) + U, \quad E[U|X, D] = 0 $$
 # 
+# $$Y = D\theta_0 + g_0(X) + U, \quad E[U|X, D] = 0 $$
 # 
 # $$D = m_0(X) + V, \quad E[V|X] = 0$$
 # 
@@ -389,7 +391,7 @@ forest_summary3 = dml_plr_forest.summary
 forest_summary3
 
 
-# In[31]:
+# In[23]:
 
 
 # Random Forest with 5 folds split
@@ -410,7 +412,7 @@ forest_summary5 = dml_plr_forest.summary
 forest_summary5
 
 
-# In[32]:
+# In[24]:
 
 
 # Gradient Boosted Trees with 3 folds split
@@ -433,7 +435,7 @@ boost_summary3 = dml_plr_boost.summary
 boost_summary3
 
 
-# In[33]:
+# In[25]:
 
 
 # Gradient Boosted Trees with 5 folds split
@@ -456,7 +458,7 @@ boost_summary5 = dml_plr_boost.summary
 boost_summary5
 
 
-# In[34]:
+# In[26]:
 
 
 # Regression Decision Trees with 3 folds split
@@ -477,7 +479,7 @@ tree_summary3 = dml_plr_tree.summary
 tree_summary3
 
 
-# In[35]:
+# In[27]:
 
 
 # Regression Decision Trees with 3 folds split
@@ -498,7 +500,7 @@ tree_summary5 = dml_plr_tree.summary
 tree_summary5
 
 
-# In[36]:
+# In[28]:
 
 
 ortho_summary = pd.concat((df_linear, df_polynomial))
@@ -514,7 +516,7 @@ plr_summary_5folds[['coef','std err', '2.5 %', '97.5 %']]
 
 # The summary of orthogonalization, DML with 3 folds, and DML with 5 folds sample splits are shown in the dataframe below. We can see that, as we increase the sample splits, the standard error decrease which gives us a tighter confidence bounds and a more robust ATE estimate
 
-# In[37]:
+# In[29]:
 
 
 df_summary = pd.concat((ortho_summary, plr_summary_3folds,
@@ -546,6 +548,4 @@ df_summary.set_index(['Model', 'ML'])[['coef','std err', '2.5 %', '97.5 %']]
 #     7. Lovell, M. C. (1963). Seasonal adjustment of economic time series and multiple regression analysis. Journal of the American Statistical Association, 58(304), 993-1010.
 #     
 #     8. Lovell, M. C. (2008). A simple proof of the FWL theorem. The Journal of Economic Education, 39(1), 88-91.
-# 
-
 # 

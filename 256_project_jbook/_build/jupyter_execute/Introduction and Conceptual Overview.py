@@ -5,8 +5,11 @@
 # 
 # Doubly robust methods estimate two models:
 # - an *outcome model*
+# 
 # $$\mu_d(X_i) = E(Y_i \mid D_i = d, X_i)$$
+# 
 # - and a *exposure model* (or treament model or propensity score):
+# 
 # $$\pi(X_i) = E(D_i \mid X_i)$$
 # 
 # where $\mu_d(\cdot)$ is the model of control or treatment $D_i = d=\{0, 1\}$, $X_i$ is a vector of covariates for unit $i = 1, \ldots, N$ for treatment (1) and control (0), $Y_i$ is the outcome, and $\pi(\cdot)$ is the exposure model. The covariates included in $X_i$ can be different for the two models. 
@@ -21,7 +24,9 @@
 # But Kang and Schafer (2007) argue that doubly robust methods are older. They cite work by Cassel, Särndal, and Wretman (1976), who proposed “generalized regression estimators” for population means from surveys where sampling weights must be estimated.  
 # 
 # Arguably, doubly robust methods go back even further than this. The form of doubly robust methods is similar to residual-on-residual regression, which dates back to Frisch, Waugh, and Lovell (1933) famous FWL theorem:
+# 
 # $$\beta_D = \frac{\text{Cov}(\tilde Y_i, \tilde D_i)}{\text{Var}(\tilde D_i)}$$
+# 
 # where $\tilde D_i$ is the residual part of $D_i$ after regressing it on $X_i$, and $\tilde Y_i$ is the residual part of $Y_i$ after regressing it on $X_i$. This formulation writes the regression coefficient as composed of an outcome model ($\tilde Y_i$) and exposure model ($\tilde D_i$), the two models used in doubly robust estimators.  
 # 
 # There are also links between doubly robust methods and matching with regression adjustment. This work goes back to at least Rubin (1973), who suggested that regression adjustment in matched data produces less biased estimates that either matching (exposure adjustment) or regression (outcome adjustment) do by themselves. 
@@ -46,6 +51,7 @@
 # To demonstrate double robustness, this section presents one of the simpler doubly robust estimators: augmented inverse probability weights (AIPW). The following is adapted from Chapter 12 of Matheus Facure Alves’s (2021) *[Causal Inference for the Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html)*.  
 # 
 # We can write this estimator as follows:
+# 
 # $$\begin{aligned}
 # \widehat{ATE} = &\frac{1}{N} \sum_{i=1}^N \left( \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) \right) \\
 # &- \frac{1}{N} \sum_{i=1}^N \left( \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i) \right)
@@ -53,19 +59,27 @@
 # 
 # For each individual in the sample, this estimator calculates two quantities:
 # - The treated potential outcome
+# 
 # $$\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)$$
 # 
 # - The control potential outcome
+# 
 # $$\hat Y_{0i} = \frac{(1-D_i)(Y_i - \hat \mu_0 (X_i))}{1-\hat \pi(X_i)} + \hat \mu_0(X_i)$$
 # 
 # Let's focus on the treated model:
+# 
 # $$\hat Y_{1i} = \frac{D_i(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i)$$
 # 
 # First, assume that the outcome model $\mu_1(X_i)$ is *correctly* specified and the exposure model $\pi(X_i)$ is *incorreclty* specified. Let's also assume (for now) that we're dealing with a treated unit, i.e. $D_i = 1$. Then
+# 
 # $$\hat \mu_1 (X_i) = Y_i$$
+# 
 # and hence
+# 
 # $$\hat Y_{1i} = \frac{D_i(0)}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).$$
+# 
 # So the model relies *only* on the outcome model! The incorrectly specified exposure model completely disappears from the equation. If we're dealing with a control unit ($D_i=0$), we get the same result:
+# 
 # $$\hat Y_{1i} = \frac{0(Y_i - \hat \mu_1 (X_i))}{\hat \pi (X_i)} + \hat \mu_1(X_i) = \hat \mu_1(X_i).$$
 # 
 # Now, what if the *exposure* model $\pi(X_i)$ is correctly specified and the outcome model $\mu_1(X)$ is incorrect? First, we rewrite the estimator for the treated outcome:
@@ -77,8 +91,11 @@
 # \end{aligned}$$
 # 
 # Since the exposure model is correclty specified, we have $D_i = \hat \pi(X_i)$ on average, so
+# 
 # $$E[D_i - \hat \pi(X_i)] = 0.$$
+# 
 # This means that the second term in equation $(*)$ is 0, so
+# 
 # $$E[\hat Y_{1i}]= E \left [ \frac{D_iY_i}{\hat \pi (X_i)}\right].$$
 # 
 # This shows that when the exposure model is correct, then the estimator depends *only* on the exposure model. We can make similar arguments for the control model $\hat Y_{0i}$.  
