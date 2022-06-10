@@ -1,6 +1,7 @@
 format: jb-book
 root: intro
 chapters:
-- file: Intro
-- file: AIPW
-- file: TMLE
+- file: Introduction and Conceptual Overview
+- file: DR_Methods
+- file: orthogonal_DML
+- file: Conclusion
